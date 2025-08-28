@@ -1,9 +1,68 @@
+let conf_apims_notes = {
+    "Apigee": {
+        "API Gateway": 4,
+        "API Lifecycle": 3,
+        "Auth & Sécurité": 4,
+        "Developer Portal": 4,
+        "Extensibilité & Plugins": 4,
+        "Monitoring & Observabilité": 3,
+        "Monétisation": 4,
+        "Protocoles supportés": 2,
+        "Transformation requêtes/réponses": 5
+    },
+    "Axway Amplify": {
+        "API Gateway": 3,
+        "API Lifecycle": 2,
+        "Auth & Sécurité": 4,
+        "Developer Portal": 3,
+        "Extensibilité & Plugins": 3,
+        "Monitoring & Observabilité": 2,
+        "Monétisation": 4,
+        "Protocoles supportés": 2,
+        "Transformation requêtes/réponses": 5
+    },
+    "Gravitee": {
+        "API Gateway": 5,
+        "API Lifecycle": 3,
+        "Auth & Sécurité": 4,
+        "Developer Portal": 5,
+        "Extensibilité & Plugins": 4,
+        "Monitoring & Observabilité": 3,
+        "Monétisation": 1,
+        "Protocoles supportés": 5,
+        "Transformation requêtes/réponses": 5
+    },
+    "Kong": {
+        "API Gateway": 4,
+        "API Lifecycle": 3,
+        "Auth & Sécurité": 5,
+        "Developer Portal": 5,
+        "Extensibilité & Plugins": 5,
+        "Monitoring & Observabilité": 4,
+        "Monétisation": 4,
+        "Protocoles supportés": 5,
+        "Transformation requêtes/réponses": 4
+    },
+    "Tyk": {
+        "API Gateway": 4,
+        "API Lifecycle": 2,
+        "Auth & Sécurité": 4,
+        "Developer Portal": 5,
+        "Extensibilité & Plugins": 3,
+        "Monitoring & Observabilité": 3,
+        "Monétisation": 4,
+        "Protocoles supportés": 3,
+        "Transformation requêtes/réponses": 5
+    }
+};
 let conf_cms = {
     "home": {
         "header-menu-quizz-EN": "Quizz",
         "header-menu-quizz-FR": "Quizz",
         "header-menu-solutions-EN": "Solutions benchmark",
         "header-menu-solutions-FR": "Les solutions",
+    "header-menu-comparateur-EN": "Comparateur",
+    "header-menu-comparateur-FR": "Comparateur",
         "header-menu-publications-EN": "Publications <span class='icon icon-video-play'>",
         "header-menu-publications-FR": "Publications <span class='icon icon-video-play'>",
         "header-menu-download-EN": "Download Refcard <span class='icon icon-video-play'>",
@@ -26,6 +85,10 @@ let conf_cms = {
         "section-intro-solutions-title-FR": "OCTO et <br />l'API Management.",
         "section-intro-solutions-subtitle-EN": "Over the years OCTO has acquired the role of opinion leader on API subjects, thanks to experience gathered by consultant teams on the field, when designing and bulding APIs.",
         "section-intro-solutions-subtitle-FR": "Si OCTO a développé au fil des ans un positionnement de leader d’opinion, c’est grâce à l'expérience de nos consultants aquise sur le terrain, avec nos clients, lors de la mise en oeuvre d'API.",
+    "section-intro-comparateur-title-EN": "The API Management<br />solutions comparator.",
+    "section-intro-comparateur-title-FR": "Comparateur de solutions d'API Management.",
+    "section-intro-comparateur-subtitle-EN": "Compare APIM solutions on key features and quickly spot strengths and weaknesses.",
+    "section-intro-comparateur-subtitle-FR": "Comparez les solutions APIM sur des fonctionnalités clés pour repérer rapidement forces et faiblesses.",
         "footer-button-legal-EN": "Legal & Privacy",
         "footer-button-legal-FR": "Legal & Privacy",
         "footer-button-press-EN": "Press",
@@ -859,6 +922,7 @@ let conf_vendorsolutions = [
     }
 ]
 
+
 $(document).ready(function() {
 
     var OCTO_APIM_APP = OCTO_APIM_APP || {};
@@ -871,7 +935,7 @@ $(document).ready(function() {
             vendorSolutions:conf_vendorsolutions
         },
         lang: "FR",
-        currentNav: 'NAVQUIZZ',
+        currentNav: 'NAVBENCHMARK',        // default landing page ⇒ solutions
         hasToDisplayQuizz: false,
         quizzId: "ID1",
         apims: [],
@@ -918,6 +982,8 @@ $(document).ready(function() {
             $('#section-intro').css('height', ''+ windowHeight +'px');
             $('#section-quizz').css('height', ''+ windowHeight +'px');
             $('#section-intro-solutions').css('height', ''+ windowHeight +'px');
+            $('#section-intro-comparateur').css('height', ''+ windowHeight +'px');
+            $('#section-comparateur').css('height', ''+ windowHeight +'px');
         },
         _stickyMenuHook: function() {
             var menu = $('header:eq(1)');
@@ -1003,6 +1069,9 @@ $(document).ready(function() {
         },
         _reDisplay: function() {
             this.displayHome();
+            $('#section-intro-comparateur').hide();
+            $('#section-comparateur').hide();
+            $('.button-comparateur').removeClass('active');
             switch (this.currentNav) {
                 case 'NAVQUIZZ':
                     if(this.hasToDisplayQuizz) {
@@ -1021,6 +1090,7 @@ $(document).ready(function() {
             $("footer:first-of-type").hide();
             this._setCMSValue('.button-quizz a', 'home', 'header-menu-quizz');
             this._setCMSValue('.button-solutions a', 'home', 'header-menu-solutions');
+            this._setCMSValue('.button-comparateur a', 'home', 'header-menu-comparateur');
             this._setCMSValue('.button-publications a', 'home', 'header-menu-publications');
             this._setCMSValue('.button-download a', 'home', 'header-menu-download');
 
@@ -1037,13 +1107,18 @@ $(document).ready(function() {
             this._setCMSValue('.start-quizz-bloc h3', 'home', 'bloc-quizz-subtitle');
             this._setCMSValue('.solutions-bloc h2', 'home', 'bloc-solutions-title');
             this._setCMSValue('.solutions-bloc h3', 'home', 'bloc-solutions-subtitle');
+            this._setCMSValue('.solutions-bloc h2', 'home', 'bloc-solutions-title');
 
             $("#section-intro").hide();
             $("#section-intro-solutions").hide();
+            $("#section-intro-comparateur").hide();
             this.quizzId = "ID1";
             $("form").hide();
             $("#section-quizz").hide();
             $("#section-solutions").hide();
+            $("#section-comparateur").hide();
+            $('.button-comparateur').removeClass('active');
+
 
             if($(window).width()<768) {
                 $("#home-bg").css('background-image', 'url(' + this._getCMSValue('home', 'background-image-mobile') + ')');
@@ -1062,6 +1137,11 @@ $(document).ready(function() {
             }
             self.currentNav = 'NAVQUIZZ';
             this.hasToDisplayQuizz = true;
+            // Masquer systématiquement le comparateur dès qu'on affiche le quizz
+            $('#section-intro-comparateur').hide();
+            $('#section-comparateur').hide();
+            $('.button-comparateur').removeClass('active');
+
             this.quizzId = id;
             $("form").hide();
 
@@ -1143,6 +1223,16 @@ $(document).ready(function() {
                 $(".button-solutions").addClass("active");
             });
 
+            $(".button-comparateur").click(function(e) {
+                e.preventDefault();
+                window.location.hash = 'display=NAVCOMPARATEUR'+self.lang;
+                // show comparateur sections - for now reuse solutions content
+                app.displayAllComparateur();
+                $(".button-quizz").removeClass("active");
+                $(".button-solutions").removeClass("active");
+                $(".button-comparateur").addClass("active");
+            });
+
             $("#navbar a").click(function(e) {
                 $("#bg").fadeIn();
             });
@@ -1183,7 +1273,10 @@ $(document).ready(function() {
             $(".solutions-bloc").click(function() {
                 app.displayAllSolutions();
                 $(".button-quizz").removeClass("active");
+                $('.button-comparateur').removeClass('active');
                 $(".button-solutions").addClass("active");
+                
+
             });
 
             $(".footer-warning a").click(function() {
@@ -1201,6 +1294,7 @@ $(document).ready(function() {
                 self.conf.cms.home["background-image-mobile"] = specifiedImg;
                 self.conf.cms["section-quizz"]["background-image"] = specifiedImg;
                 self.conf.cms["section-intro-solutions"]["background-image"] = specifiedImg;
+                self.conf.cms["section-intro-comparateur"]["background-image"] = specifiedImg;
             }
 
             var displayParam = self._parameter(window.location, 'display');
@@ -1238,6 +1332,22 @@ $(document).ready(function() {
                     $(".button-lang-en").addClass("active");
                     $(".button-lang-fr").removeClass("active");
                     break;
+                case 'NAVCOMPARATEURFR':
+                    self.currentNav = 'NAVCOMPARATEUR';
+                    $(".button-quizz").removeClass("active");
+                    $(".button-comparateur").addClass("active");
+                    self.lang = "FR";
+                    $(".button-lang-en").removeClass("active");
+                    $(".button-lang-fr").addClass("active");
+                    break;
+                case 'NAVCOMPARATEUREN':
+                    self.currentNav = 'NAVCOMPARATEUR';
+                    $(".button-quizz").removeClass("active");
+                    $(".button-comparateur").addClass("active");
+                    self.lang = "EN";
+                    $(".button-lang-en").addClass("active");
+                    $(".button-lang-fr").removeClass("active");
+                    break;
                 }
             }
 
@@ -1264,6 +1374,7 @@ $(document).ready(function() {
         },
         displayAllSolutions: function() {
             this.currentNav = 'NAVBENCHMARK';
+            $('.button-comparateur').removeClass('active');
             $("#section-intro").hide();
             $("#section-quizz").hide();
             $("#home-bg").addClass("transparent");
@@ -1288,8 +1399,113 @@ $(document).ready(function() {
                 "TYK",
                 "WSO2"
             ]);
+            // ensure comparateur is hidden when displaying solutions
+            $("#section-intro-comparateur").hide();
+            $("#section-comparateur").hide();
             $("#section-intro-solutions").fadeIn();
             $("#section-solutions").fadeIn();
+        },
+
+        displayAllComparateur: function() {
+            this.currentNav = 'NAVCOMPARATEUR';
+            $("#section-intro").hide();
+            $("#section-quizz").hide();
+            $("#home-bg").addClass("transparent");
+            $("#home-bg-open").addClass("transparent");
+            $("#home-bg-solutions").removeClass("transparent");
+            // reuse the same CMS values as solutions for now
+            this._setCMSValue('#section-intro-comparateur h1', 'home', 'section-intro-comparateur-title');
+            this._setCMSValue('#section-intro-comparateur p', 'home', 'section-intro-comparateur-subtitle');
+
+            // Hide solutions when showing comparateur and show the static 'A venir' block
+            $("#section-intro-solutions").hide();
+            $("#section-solutions").hide();
+            $("#section-intro-comparateur").fadeIn();
+            // inject comparateur UI into the comparateur block
+            var ui = this._buildComparateurUI();
+            $('#bloc-comparateur').html('<h2>Comparateur.</h2>' + ui);
+            $("#section-comparateur").fadeIn();
+            this._attachComparateurHandlers();
+        },
+
+        _renderStars: function(n) {
+            var stars = '';
+            for(var i=1;i<=5;i++) {
+                if(i<=n) stars += '<span class="icon icon-star-full">★</span>';
+                else stars += '<span class="icon icon-star-empty">☆</span>';
+            }
+            return stars;
+        },
+
+        _buildComparateurUI: function() {
+            var self = this;
+            // build select options from vendorSolutions
+            var options = '';
+            Object.keys(conf_apims_notes).forEach(function (vendor) {
+                options += '<option value="' + vendor + '">' + vendor + '</option>';
+            });
+
+            var html = '';
+            html += '<div class="row">';
+            html += '<div class="col-md-5">';
+            html += '<label for="compare-left">Solution 1</label>';
+            html += '<select id="compare-left" class="form-control">'+options+'</select>';
+            html += '</div>';
+            html += '<div class="col-md-2 text-center" style="display:flex;align-items:center;justify-content:center;">';
+            html += '<strong>VS</strong>';
+            html += '</div>';
+            html += '<div class="col-md-5">';
+            html += '<label for="compare-right">Solution 2</label>';
+            html += '<select id="compare-right" class="form-control">'+options+'</select>';
+            html += '</div>';
+            html += '</div>';
+
+            // features rows (derive from conf_apims_notes first vendor)
+            var features = [];
+            for(var k in conf_apims_notes) {
+                features = Object.keys(conf_apims_notes[k]);
+                break;
+            }
+
+            html += '<div class="row" style="margin-top:20px;">';
+            html += '<div class="col-md-12">';
+            html += '<table class="table table-bordered" id="comparateur-table">';
+            html += '<thead><tr><th>Feature</th><th id="col-left">APIM A</th><th id="col-right">APIM B</th></tr></thead>';
+            html += '<tbody>';
+            for(var f=0; f<features.length; f++) {
+                html += '<tr data-feature="'+features[f]+'">';
+                html += '<td>'+features[f]+'</td>';
+                html += '<td class="val-left">'+this._renderStars(0)+'</td>';
+                html += '<td class="val-right">'+this._renderStars(0)+'</td>';
+                html += '</tr>';
+            }
+            html += '</tbody>';
+            html += '</table>';
+            html += '</div>';
+            html += '</div>';
+
+            return html;
+        },
+
+        _attachComparateurHandlers: function() {
+            var self = this;
+            $(document).on('change', '#compare-left, #compare-right', function() {
+                var left = $('#compare-left').val();
+                var right = $('#compare-right').val();
+                $('#col-left').text(left);
+                $('#col-right').text(right);
+
+                $('#comparateur-table tbody tr').each(function() {
+                    var feature = $(this).data('feature');
+                    var leftNote = (conf_apims_notes[left] && conf_apims_notes[left][feature]) ? conf_apims_notes[left][feature] : 0;
+                    var rightNote = (conf_apims_notes[right] && conf_apims_notes[right][feature]) ? conf_apims_notes[right][feature] : 0;
+                    $(this).find('.val-left').html(self._renderStars(leftNote));
+                    $(this).find('.val-right').html(self._renderStars(rightNote));
+                });
+            });
+
+            // trigger initial populate
+            setTimeout(function(){ $('#compare-left').trigger('change'); }, 50);
         },
         displayFail: function(failID) {
             var fail = null;
@@ -1371,6 +1587,7 @@ $(document).ready(function() {
                 }
             }
 
+            // Always inject detailed solution blocks into the solutions placeholder.
             $("#solutionsplaceholder").html(htmlapims);
 
             // for all apims, attach event on click to display pros & cons
@@ -1393,6 +1610,8 @@ $(document).ready(function() {
                 });
             });
 
+            // show the corresponding section
+            // Only show/hide the solutions section here; comparateur is a static section handled elsewhere.
             $("#section-solutions").fadeIn();
             $("#solutionsplaceholder").fadeIn();
 
