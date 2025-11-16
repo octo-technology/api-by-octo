@@ -613,6 +613,112 @@ section {
     line-height: 1.5em;
 }
 
+#bloc-comparateur {
+    width: 100%;
+}
+
+#section-comparateur {
+    padding-bottom: 80px;
+}
+
+.comparateur-select-row {
+    align-items: stretch;
+}
+
+.compare-select-wrapper {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 12px 32px rgba(14, 35, 86, 0.08);
+    min-height: 150px;
+}
+
+.compare-select-wrapper label {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: #7c8090;
+}
+
+.compare-select-wrapper select {
+    margin-top: 10px;
+}
+
+.comparateur-vs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.comparateur-table-row {
+    margin-top: 30px;
+}
+
+.comparateur-table-wrapper {
+    border: 2px solid #d7dbe8;
+    border-radius: 22px;
+    padding: 0;
+    background: #fff;
+    overflow: hidden;
+}
+
+#comparateur-table {
+    width: 100%;
+    table-layout: fixed;
+    margin-bottom: 0;
+}
+
+#comparateur-table th,
+#comparateur-table td {
+    vertical-align: middle;
+}
+
+#comparateur-table .feature-col,
+#comparateur-table td:first-child {
+    width: 40%;
+    text-align: left;
+}
+
+#comparateur-table .solution-col,
+#comparateur-table .val-left,
+#comparateur-table .val-right {
+    width: 30%;
+    text-align: center;
+}
+
+#comparateur-table tbody td {
+    font-size: 16px;
+}
+
+.compare-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    min-height: 60px;
+}
+
+.compare-header img {
+    max-height: 42px;
+    width: auto;
+}
+
+#bloc-comparateur .val-left,
+#bloc-comparateur .val-right {
+    font-size: 22px;
+}
+
+#bloc-comparateur .icon-star-full {
+    color: #f2c94c;
+}
+
+#bloc-comparateur .icon-star-empty {
+    color: #d7dbe8;
+}
+
 #section-intro-solutions h1 {
     font-size: 100px;
     font-weight: 900;
@@ -708,10 +814,10 @@ section {
 
 .footer {
     width: 100%;
-    height: 190px;
+    min-height: 190px;
     background-color: #FFF;
     padding: 60px 0;
-    position: absolute;
+    position: relative;
     display: none;
 }
 .footer div {
