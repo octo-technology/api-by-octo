@@ -5,9 +5,9 @@ from pathlib import Path
 # ──────────────────────────────────────────────────────────────
 # 1) Localisation et lecture du fichier (délimiteur auto)
 # ──────────────────────────────────────────────────────────────
-DATA_PATH = Path("benchmark.csv")           # ← nom de ton fichier
-ENCODING  = "utf-8"                      # ajuste si besoin
-DECIMALS  = 0                            # 0 ⇒ note entière sur 5
+DATA_PATH = Path("benchmark.csv")        
+ENCODING  = "utf-8"                     
+DECIMALS  = 0                            
 
 if not DATA_PATH.exists():
     raise FileNotFoundError(f"{DATA_PATH} introuvable")
@@ -18,8 +18,8 @@ df = pd.read_csv(DATA_PATH, sep=None, engine="python", encoding=ENCODING)
 # 2) Normalisation des en-têtes
 # ──────────────────────────────────────────────────────────────
 df.columns = (
-    df.columns.str.strip()                          # espaces
-              .str.replace("\ufeff", "", regex=False)  # BOM éventuel
+    df.columns.str.strip()                          
+              .str.replace("\ufeff", "", regex=False)  
               .str.replace("Reponse", "Réponse", regex=False)
               .str.replace("Response", "Réponse", regex=False)
               .str.replace("Critere", "Critère", regex=False)
@@ -44,7 +44,7 @@ def convert_response_to_score(resp: str | float | None) -> float | None:
         return 0.5
     if resp.startswith("non"):
         return 0
-    return None                     # valeur inattendue → None
+    return None                   
 
 df["Score"] = df["Réponse"].apply(convert_response_to_score)
 
@@ -57,7 +57,7 @@ def note_moyenne(scores):
 notes = (
     df.groupby(["Outil", "Critère"])["Score"]
       .apply(note_moyenne)
-      .unstack(fill_value=0)        # colonnes = critères, lignes = outils
+      .unstack(fill_value=0)     
       .sort_index()
 )
 
@@ -67,5 +67,5 @@ notes = (
 conf_apims_notes = notes.astype(int).to_dict(orient="index")
 json_str = "let conf_apims_notes = " + json.dumps(conf_apims_notes, ensure_ascii=False, indent=4) + ";"
 
-print(json_str)                                    # console
+print(json_str)                                    
 Path("skin2/js/conf_apims_notes.js").write_text(json_str, encoding="utf-8")
