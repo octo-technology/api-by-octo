@@ -1438,7 +1438,6 @@ $(document).ready(function() {
         },
 
         _buildComparateurUI: function() {
-            var self = this;
             // build select options from vendorSolutions
             var options = '';
             Object.keys(conf_apims_notes).forEach(function (vendor) {
@@ -1446,17 +1445,21 @@ $(document).ready(function() {
             });
 
             var html = '';
-            html += '<div class="row">';
+            html += '<div class="row comparateur-select-row">';
             html += '<div class="col-md-5">';
+            html += '<div class="compare-select-wrapper">';
             html += '<label for="compare-left">Solution 1</label>';
             html += '<select id="compare-left" class="form-control">'+options+'</select>';
             html += '</div>';
-            html += '<div class="col-md-2 text-center" style="display:flex;align-items:center;justify-content:center;">';
+            html += '</div>';
+            html += '<div class="col-md-2 text-center comparateur-vs">';
             html += '<strong>VS</strong>';
             html += '</div>';
             html += '<div class="col-md-5">';
+            html += '<div class="compare-select-wrapper">';
             html += '<label for="compare-right">Solution 2</label>';
             html += '<select id="compare-right" class="form-control">'+options+'</select>';
+            html += '</div>';
             html += '</div>';
             html += '</div>';
 
@@ -1467,20 +1470,25 @@ $(document).ready(function() {
                 break;
             }
 
-            html += '<div class="row" style="margin-top:20px;">';
-            html += '<div class="col-md-12">';
-            html += '<table class="table table-bordered" id="comparateur-table">';
-            html += '<thead><tr><th>Feature</th><th id="col-left">APIM A</th><th id="col-right">APIM B</th></tr></thead>';
-            html += '<tbody>';
+            var tableHtml = '';
+            tableHtml += '<table class="table table-bordered" id="comparateur-table">';
+            tableHtml += '<thead><tr><th class="feature-col">Feature</th><th id="col-left" class="solution-col" data-default-label="Solution 1">Solution 1</th><th id="col-right" class="solution-col" data-default-label="Solution 2">Solution 2</th></tr></thead>';
+            tableHtml += '<tbody>';
             for(var f=0; f<features.length; f++) {
-                html += '<tr data-feature="'+features[f]+'">';
-                html += '<td>'+features[f]+'</td>';
-                html += '<td class="val-left">'+this._renderStars(0)+'</td>';
-                html += '<td class="val-right">'+this._renderStars(0)+'</td>';
-                html += '</tr>';
+                tableHtml += '<tr data-feature="'+features[f]+'">';
+                tableHtml += '<td>'+features[f]+'</td>';
+                tableHtml += '<td class="val-left">'+this._renderStars(0)+'</td>';
+                tableHtml += '<td class="val-right">'+this._renderStars(0)+'</td>';
+                tableHtml += '</tr>';
             }
-            html += '</tbody>';
-            html += '</table>';
+            tableHtml += '</tbody>';
+            tableHtml += '</table>';
+
+            html += '<div class="row comparateur-table-row">';
+            html += '<div class="col-md-12 comparateur-table-wrapper">';
+            html += '<div class="comparateur-table-inner">';
+            html += tableHtml;
+            html += '</div>';
             html += '</div>';
             html += '</div>';
 
@@ -1489,23 +1497,118 @@ $(document).ready(function() {
 
         _attachComparateurHandlers: function() {
             var self = this;
-            $(document).on('change', '#compare-left, #compare-right', function() {
+            var vendors = Object.keys(conf_apims_notes);
+
+            if(vendors.length) {
+                $('#compare-left').val(vendors[0]);
+                var second = vendors[0];
+                for(var i = 0; i < vendors.length; i++) {
+                    if(vendors[i] !== vendors[0]) {
+                        second = vendors[i];
+                        break;
+                    }
+                }
+                $('#compare-right').val(second);
+            }
+
+            var handleChange = function(triggerSource) {
                 var left = $('#compare-left').val();
                 var right = $('#compare-right').val();
-                $('#col-left').text(left);
-                $('#col-right').text(right);
 
-                $('#comparateur-table tbody tr').each(function() {
-                    var feature = $(this).data('feature');
-                    var leftNote = (conf_apims_notes[left] && conf_apims_notes[left][feature]) ? conf_apims_notes[left][feature] : 0;
-                    var rightNote = (conf_apims_notes[right] && conf_apims_notes[right][feature]) ? conf_apims_notes[right][feature] : 0;
-                    $(this).find('.val-left').html(self._renderStars(leftNote));
-                    $(this).find('.val-right').html(self._renderStars(rightNote));
-                });
+                if(left && right && left === right) {
+                    var fallback = '';
+                    for(var j = 0; j < vendors.length; j++) {
+                        if(vendors[j] !== left) {
+                            fallback = vendors[j];
+                            break;
+                        }
+                    }
+                    if(triggerSource === 'compare-left') {
+                        $('#compare-right').val(fallback);
+                        right = $('#compare-right').val();
+                    } else {
+                        $('#compare-left').val(fallback);
+                        left = $('#compare-left').val();
+                    }
+                }
+                self._refreshComparateur(left, right);
+            };
+
+            $(document).off('change', '#compare-left');
+            $(document).off('change', '#compare-right');
+            $(document).on('change', '#compare-left, #compare-right', function() {
+                handleChange(this.id);
             });
 
-            // trigger initial populate
-            setTimeout(function(){ $('#compare-left').trigger('change'); }, 50);
+            self._refreshComparateur($('#compare-left').val(), $('#compare-right').val());
+        },
+        _refreshComparateur: function(left, right) {
+            left = left || '';
+            right = right || '';
+            this._updateComparateurHeader('#col-left', left);
+            this._updateComparateurHeader('#col-right', right);
+            this._updateComparateurOptionStates(left, right);
+            this._updateComparateurTable(left, right);
+        },
+        _updateComparateurHeader: function(selector, label) {
+            var $target = $(selector);
+            var defaultLabel = $target.data('defaultLabel') || '';
+            var vendor = this._findVendorByLabel(label);
+            var title = label || defaultLabel;
+            var logo = vendor && vendor.logo ? vendor.logo : '';
+            var html = '<div class="compare-header">';
+            if(logo) {
+                html += '<img src="'+logo+'" alt="'+title+' logo" title="'+title+'">';
+            }
+            else {
+                html += '<span>'+title+'</span>';
+            }
+            html += '</div>';
+            $target.html(html);
+        },
+        _updateComparateurOptionStates: function(left, right) {
+            var $left = $('#compare-left option');
+            var $right = $('#compare-right option');
+            $left.prop('disabled', false);
+            $right.prop('disabled', false);
+            if(right) {
+                $left.filter('[value="'+right+'"]').prop('disabled', true);
+            }
+            if(left) {
+                $right.filter('[value="'+left+'"]').prop('disabled', true);
+            }
+        },
+        _updateComparateurTable: function(left, right) {
+            var self = this;
+            $('#comparateur-table tbody tr').each(function() {
+                var feature = $(this).data('feature');
+                var leftNote = (conf_apims_notes[left] && conf_apims_notes[left][feature]) ? conf_apims_notes[left][feature] : 0;
+                var rightNote = (conf_apims_notes[right] && conf_apims_notes[right][feature]) ? conf_apims_notes[right][feature] : 0;
+                $(this).find('.val-left').html(self._renderStars(leftNote));
+                $(this).find('.val-right').html(self._renderStars(rightNote));
+            });
+        },
+        _findVendorByLabel: function(label) {
+            if(!label) {
+                return null;
+            }
+            var normalized = label.toLowerCase();
+            for(var i = 0; i < this.conf.vendorSolutions.length; i++) {
+                var vendor = this.conf.vendorSolutions[i];
+                var name = (vendor.name || '').toLowerCase();
+                var id = (vendor.id || '').toLowerCase();
+                if(name) {
+                    if(normalized === name || normalized.indexOf(name) !== -1 || name.indexOf(normalized) !== -1) {
+                        return vendor;
+                    }
+                }
+                if(id) {
+                    if(normalized === id || normalized.indexOf(id) !== -1 || id.indexOf(normalized) !== -1) {
+                        return vendor;
+                    }
+                }
+            }
+            return null;
         },
         displayFail: function(failID) {
             var fail = null;

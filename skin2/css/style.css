@@ -594,7 +594,6 @@ section {
     display: none;
 }
 
-/* make comparateur intro use same theme as solutions intro */
 #section-intro-comparateur {
     display: none;
 }
@@ -618,7 +617,8 @@ section {
 }
 
 #section-comparateur {
-    padding-bottom: 80px;
+    padding: 40px 0 1000px 0;
+    position: relative;
 }
 
 .comparateur-select-row {
@@ -665,6 +665,11 @@ section {
     overflow: hidden;
 }
 
+.comparateur-table-inner {
+    max-height: none;
+    overflow: visible;
+}
+
 #comparateur-table {
     width: 100%;
     table-layout: fixed;
@@ -674,6 +679,7 @@ section {
 #comparateur-table th,
 #comparateur-table td {
     vertical-align: middle;
+    padding: 12px 15px;
 }
 
 #comparateur-table .feature-col,
@@ -690,7 +696,7 @@ section {
 }
 
 #comparateur-table tbody td {
-    font-size: 16px;
+    font-size: 15px;
 }
 
 .compare-header {
