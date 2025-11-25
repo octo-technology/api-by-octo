@@ -991,7 +991,7 @@ $(document).ready(function () {
             $('#section-comparateur').css('height', '' + windowHeight + 'px');
         },
         _stickyMenuHook: function () {
-            var menu = $('header:eq(1)');
+            var menu = $('header');
             var $window = $(window);
 
             var window_top_position = $window.scrollTop();
