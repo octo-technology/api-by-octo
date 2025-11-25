@@ -826,6 +826,7 @@ section {
 #section-solutions .bloc h2 {
     font-size: 18px;
     letter-spacing: 0.1em;
+    line-height: 1.5em;
     font-weight: bold;
     text-transform: uppercase;
 }
@@ -881,6 +882,11 @@ section {
     z-index: 1;
     line-height: 85px;
     margin-top: -60px;
+}
+
+#section-quizz .form-check {
+    padding-bottom: 12px;
+    line-height: 12px;
 }
 
 #section-quizz .form-check input,
