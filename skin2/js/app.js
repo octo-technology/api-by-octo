@@ -55,14 +55,15 @@ let conf_apims_notes = {
         "Transformation requêtes/réponses": 5
     }
 };
+
 let conf_cms = {
     "home": {
         "header-menu-quizz-EN": "Quizz",
         "header-menu-quizz-FR": "Quizz",
         "header-menu-solutions-EN": "Solutions benchmark",
         "header-menu-solutions-FR": "Les solutions",
-    "header-menu-comparateur-EN": "Comparateur",
-    "header-menu-comparateur-FR": "Comparateur",
+        "header-menu-comparateur-EN": "Comparateur",
+        "header-menu-comparateur-FR": "Comparateur",
         "header-menu-publications-EN": "Publications <span class='icon icon-video-play'>",
         "header-menu-publications-FR": "Publications <span class='icon icon-video-play'>",
         "header-menu-download-EN": "Download Refcard <span class='icon icon-video-play'>",
@@ -73,6 +74,10 @@ let conf_cms = {
         "bloc-quizz-subtitle-FR": "Commencer le quizz !",
         "bloc-solutions-title-EN": "API MANAGEMENT SOLUTIONS<br/> MARKET OVERVIEW",
         "bloc-solutions-title-FR": "PANORAMA DES SOLUTIONS<br/> D'API MANAGEMENT",
+        "bloc-comparateur-title-FR": "SOLUTIONS<br/> D'API MANAGEMENT",
+        "bloc-comparateur-title-EN": "API MANAGEMENT SOLUTIONS",
+        "bloc-comparateur-subtitle-FR": "Comparer les solutions!",
+        "bloc-comparateur-subtitle-EN": "Compare the solutions!",
         "bloc-solutions-subtitle-EN": "See the benchmark!",
         "bloc-solutions-subtitle-FR": "Consulter le benchmark",
         "bloc-solutions-button-knowmore-EN": "For more information",
@@ -85,10 +90,10 @@ let conf_cms = {
         "section-intro-solutions-title-FR": "OCTO et <br />l'API Management.",
         "section-intro-solutions-subtitle-EN": "Over the years OCTO has acquired the role of opinion leader on API subjects, thanks to experience gathered by consultant teams on the field, when designing and bulding APIs.",
         "section-intro-solutions-subtitle-FR": "Si OCTO a développé au fil des ans un positionnement de leader d’opinion, c’est grâce à l'expérience de nos consultants aquise sur le terrain, avec nos clients, lors de la mise en oeuvre d'API.",
-    "section-intro-comparateur-title-EN": "The API Management<br />solutions comparator.",
-    "section-intro-comparateur-title-FR": "Comparateur de solutions d'API Management.",
-    "section-intro-comparateur-subtitle-EN": "Compare APIM solutions on key features and quickly spot strengths and weaknesses.",
-    "section-intro-comparateur-subtitle-FR": "Comparez les solutions APIM sur des fonctionnalités clés pour repérer rapidement forces et faiblesses.",
+        "section-intro-comparateur-title-EN": "The API Management<br />solutions comparator.",
+        "section-intro-comparateur-title-FR": "Comparateur de solutions d'API Management.",
+        "section-intro-comparateur-subtitle-EN": "Compare APIM solutions on key features and quickly spot strengths and weaknesses.",
+        "section-intro-comparateur-subtitle-FR": "Comparez les solutions APIM sur des fonctionnalités clés pour repérer rapidement forces et faiblesses.",
         "footer-button-legal-EN": "Legal & Privacy",
         "footer-button-legal-FR": "Legal & Privacy",
         "footer-button-press-EN": "Press",
@@ -229,7 +234,7 @@ let conf_quizz = {
                     "answer-EN": "AWS",
                     "answer-FR": "AWS",
                     "goto": "66"
-                },        {
+                }, {
                     "answer-EN": "Google",
                     "answer-FR": "Google",
                     "goto": "34"
@@ -321,7 +326,7 @@ let conf_quizz = {
         },
         "ID37": {
             "type": "leaf",
-            "fail":"DIY",
+            "fail": "DIY",
             "apim": []
         },
         "ID51": {
@@ -923,7 +928,7 @@ let conf_vendorsolutions = [
 ]
 
 
-$(document).ready(function() {
+$(document).ready(function () {
 
     var OCTO_APIM_APP = OCTO_APIM_APP || {};
 
@@ -932,10 +937,10 @@ $(document).ready(function() {
             // three json config files to be loaded at init
             cms: conf_cms,
             quizz: conf_quizz,
-            vendorSolutions:conf_vendorsolutions
+            vendorSolutions: conf_vendorsolutions
         },
         lang: "FR",
-        currentNav: 'NAVBENCHMARK',        // default landing page ⇒ solutions
+        currentNav: 'NAVQUIZZ',  // default landing page
         hasToDisplayQuizz: false,
         quizzId: "ID1",
         apims: [],
@@ -952,7 +957,7 @@ $(document).ready(function() {
         },
         _getCMSValue: function (section, key) {
             var domSection = this.conf.cms[section];
-            if( (domSection[key + '-' + this.lang]) != null) {
+            if ((domSection[key + '-' + this.lang]) != null) {
                 return domSection[key + '-' + this.lang];
             } else {
                 return domSection[key];
@@ -962,46 +967,46 @@ $(document).ready(function() {
             var domSection = this.conf.cms[section];
             $(selector).html(domSection[key + '-' + this.lang]);
         },
-        _paralaxHook: function() {
+        _paralaxHook: function () {
             var baseHeight = 0;
             var decalage = $(window).scrollTop() / 3 - baseHeight;
             $('#home-bg-container div').css('background-position-y', decalage + 'px');
         },
-        _resizeVideoContainerHook: function() {
+        _resizeVideoContainerHook: function () {
             $('header').fadeIn();
             var windowHeight = $(window).height();
-            $('#home-bg-container').css('height', ''+ windowHeight +'px');
-            $('#nav-overlay').css('height', ''+ windowHeight +'px');
-            if($(window).width()>=992) {
-                windowHeight -=200;
-            } else if($(window).width()>=768) {
-                windowHeight -=50;
+            $('#home-bg-container').css('height', '' + windowHeight + 'px');
+            $('#nav-overlay').css('height', '' + windowHeight + 'px');
+            if ($(window).width() >= 992) {
+                windowHeight -= 200;
+            } else if ($(window).width() >= 768) {
+                windowHeight -= 50;
             } else {
-                windowHeight -=150;
+                windowHeight -= 150;
             }
-            $('#section-intro').css('height', ''+ windowHeight +'px');
-            $('#section-quizz').css('height', ''+ windowHeight +'px');
-            $('#section-intro-solutions').css('height', ''+ windowHeight +'px');
-            $('#section-intro-comparateur').css('height', ''+ windowHeight +'px');
-            $('#section-comparateur').css('height', ''+ windowHeight +'px');
+            $('#section-intro').css('height', '' + windowHeight + 'px');
+            $('#section-quizz').css('height', '' + windowHeight + 'px');
+            $('#section-intro-solutions').css('height', '' + windowHeight + 'px');
+            $('#section-intro-comparateur').css('height', '' + windowHeight + 'px');
+            $('#section-comparateur').css('height', '' + windowHeight + 'px');
         },
-        _stickyMenuHook: function() {
+        _stickyMenuHook: function () {
             var menu = $('header:eq(1)');
             var $window = $(window);
 
             var window_top_position = $window.scrollTop();
-            if(window_top_position >= 200) {
+            if (window_top_position >= 200) {
                 menu.addClass('in-view');
             } else {
                 menu.removeClass('in-view');
                 $('.navbar-collapse').collapse('hide');
             }
         },
-        _overlayMenuHook: function() {
+        _overlayMenuHook: function () {
             var $window = $(window);
 
             var window_top_position = $window.scrollTop();
-            if(window_top_position >=  ($(window).height()/2)) {
+            if (window_top_position >= ($(window).height() / 2)) {
                 $('#nav-overlay .blog-link').css('color', '#0e2356');
                 $('#nav-overlay .contact-link').css('color', '#0e2356');
             } else {
@@ -1009,18 +1014,18 @@ $(document).ready(function() {
                 $('#nav-overlay .contact-link').css('color', '#FFF');
             }
         },
-        _backHistoryHook: function() {
+        _backHistoryHook: function () {
             var back = this.history.shift();
-            if(back[0]=='NAVINTRO') {
+            if (back[0] == 'NAVINTRO') {
                 this.displayIntro();
-            } else if(back[0]=='NAVQUIZZ') {
-                this.displayQuizz(back[1],back[2]);
+            } else if (back[0] == 'NAVQUIZZ') {
+                this.displayQuizz(back[1], back[2]);
             } else {
                 this.displayAllSolutions();
             }
         },
-        _animateShapes: function() {
-            if ( $('.shapes').length ) {
+        _animateShapes: function () {
+            if ($('.shapes').length) {
 
                 var pathC = anime.path('.shape-c path');
                 anime({
@@ -1067,14 +1072,14 @@ $(document).ready(function() {
                 });
             }
         },
-        _reDisplay: function() {
+        _reDisplay: function () {
             this.displayHome();
             $('#section-intro-comparateur').hide();
             $('#section-comparateur').hide();
             $('.button-comparateur').removeClass('active');
             switch (this.currentNav) {
                 case 'NAVQUIZZ':
-                    if(this.hasToDisplayQuizz) {
+                    if (this.hasToDisplayQuizz) {
                         this.displayQuizz(this.quizzId);
                     } else {
                         this.displayIntro();
@@ -1085,7 +1090,7 @@ $(document).ready(function() {
                     break;
             }
         },
-        displayHome: function() {
+        displayHome: function () {
             $("header:first-of-type").hide();
             $("footer:first-of-type").hide();
             this._setCMSValue('.button-quizz a', 'home', 'header-menu-quizz');
@@ -1101,14 +1106,14 @@ $(document).ready(function() {
             $("header:first-of-type").fadeIn();
             $("footer:first-of-type").fadeIn();
         },
-        displayIntro: function() {
+        displayIntro: function () {
             this._setCMSValue('.button-quizz a', 'home', 'header-menu-quizz');
             this._setCMSValue('.start-quizz-bloc h2', 'home', 'bloc-quizz-title');
             this._setCMSValue('.start-quizz-bloc h3', 'home', 'bloc-quizz-subtitle');
             this._setCMSValue('.solutions-bloc h2', 'home', 'bloc-solutions-title');
             this._setCMSValue('.solutions-bloc h3', 'home', 'bloc-solutions-subtitle');
-            this._setCMSValue('.solutions-bloc h2', 'home', 'bloc-solutions-title');
-
+            this._setCMSValue('.comparateur-bloc h3', 'home', 'bloc-comparateur-subtitle');
+            this._setCMSValue('.comparateur-bloc h2', 'home', 'bloc-comparateur-title');
             $("#section-intro").hide();
             $("#section-intro-solutions").hide();
             $("#section-intro-comparateur").hide();
@@ -1120,7 +1125,7 @@ $(document).ready(function() {
             $('.button-comparateur').removeClass('active');
 
 
-            if($(window).width()<768) {
+            if ($(window).width() < 768) {
                 $("#home-bg").css('background-image', 'url(' + this._getCMSValue('home', 'background-image-mobile') + ')');
             } else {
                 $("#home-bg").css('background-image', 'url(' + this._getCMSValue('home', 'background-image') + ')');
@@ -1130,9 +1135,9 @@ $(document).ready(function() {
             $("#home-bg-solutions").addClass("transparent");
             $("#section-intro").fadeIn();
         },
-        displayQuizz: function(id, value) {
+        displayQuizz: function (id, value) {
             var self = this;
-            if(!id) {
+            if (!id) {
                 id = "ID1";
             }
             self.currentNav = 'NAVQUIZZ';
@@ -1145,17 +1150,17 @@ $(document).ready(function() {
             this.quizzId = id;
             $("form").hide();
 
-            if(self.conf.quizz.quizz[id].type == "leaf") {
+            if (self.conf.quizz.quizz[id].type == "leaf") {
                 var apims = self.conf.quizz.quizz[id].apim;
                 var fail = self.conf.quizz.quizz[id].fail;
-                if(fail) {
+                if (fail) {
                     self.displayFail(fail);
-                    $(".return-button").click(function() {
+                    $(".return-button").click(function () {
                         self._backHistoryHook();
                     });
                 } else {
                     self.displayQuizzSolutions(apims);
-                    $(".return-button").click(function() {
+                    $(".return-button").click(function () {
                         self._backHistoryHook();
                     });
                 }
@@ -1165,7 +1170,7 @@ $(document).ready(function() {
 
                 $("#section-quizz").html(html);
 
-                $("input[type=radio]").click(function(e) {
+                $("input[type=radio]").click(function (e) {
                     e.preventDefault();
                     var current = $(this);
                     var ID = current.attr("id");
@@ -1174,7 +1179,7 @@ $(document).ready(function() {
                     self.displayQuizz(current.attr("id"), value);
                 });
 
-                $(".return-button").click(function() {
+                $(".return-button").click(function () {
                     self._backHistoryHook();
                 });
 
@@ -1187,14 +1192,14 @@ $(document).ready(function() {
                 $("#section-quizz").fadeIn();
             }
         },
-        start: function() {
+        start: function () {
 
             // init quizz form
             var self = this;
             $("section").hide();
             $("input[type=radio]").removeAttr('checked');
 
-            $("#logo-octo").click(function(e) {
+            $("#logo-octo").click(function (e) {
                 e.preventDefault();
                 self.currentNav = 'NAVQUIZZ';
                 self.hasToDisplayQuizz = false;
@@ -1205,27 +1210,27 @@ $(document).ready(function() {
                 $(".scroll-to-link").hide();
             });
 
-            $(".button-quizz").click(function(e) {
+            $(".button-quizz").click(function (e) {
                 e.preventDefault();
                 self.history.unshift(['NAVINTRO']);
-                window.location.hash = 'display=NAVQUIZZ'+self.lang;
+                window.location.hash = 'display=NAVQUIZZ' + self.lang;
                 app.displayQuizz();
                 $(".button-solutions").removeClass("active");
                 $(".button-quizz").addClass("active");
                 $(".scroll-to-link").hide();
             });
 
-            $(".button-solutions").click(function(e) {
+            $(".button-solutions").click(function (e) {
                 e.preventDefault();
-                window.location.hash = 'display=NAVBENCHMARK'+self.lang;
+                window.location.hash = 'display=NAVBENCHMARK' + self.lang;
                 app.displayAllSolutions();
                 $(".button-quizz").removeClass("active");
                 $(".button-solutions").addClass("active");
             });
 
-            $(".button-comparateur").click(function(e) {
+            $(".button-comparateur").click(function (e) {
                 e.preventDefault();
-                window.location.hash = 'display=NAVCOMPARATEUR'+self.lang;
+                window.location.hash = 'display=NAVCOMPARATEUR' + self.lang;
                 // show comparateur sections - for now reuse solutions content
                 app.displayAllComparateur();
                 $(".button-quizz").removeClass("active");
@@ -1233,57 +1238,62 @@ $(document).ready(function() {
                 $(".button-comparateur").addClass("active");
             });
 
-            $("#navbar a").click(function(e) {
+            $("#navbar a").click(function (e) {
                 $("#bg").fadeIn();
             });
 
-            $(".button-lang-fr").click(function(e) {
+            $(".button-lang-fr").click(function (e) {
                 e.preventDefault();
                 self.lang = "FR";
-                window.location.hash = 'display='+self.currentNav+'FR';
+                window.location.hash = 'display=' + self.currentNav + 'FR';
                 self._reDisplay();
                 $(".button-lang-en").removeClass("active");
                 $(".button-lang-fr").addClass("active");
             });
 
-            $(".button-lang-en").click(function(e) {
+            $(".button-lang-en").click(function (e) {
                 e.preventDefault();
                 self.lang = "EN";
-                window.location.hash = 'display='+self.currentNav+'EN';
+                window.location.hash = 'display=' + self.currentNav + 'EN';
                 self._reDisplay();
                 $(".button-lang-fr").removeClass("active");
                 $(".button-lang-en").addClass("active");
             });
 
-            $("#nav-overlay .scroll-to-link").click(function(e) {
+            $("#nav-overlay .scroll-to-link").click(function (e) {
                 e.preventDefault();
-                var scrollTo = $("#nav-overlay .scroll-to-link").offset().top +50;
+                var scrollTo = $("#nav-overlay .scroll-to-link").offset().top + 50;
                 $('html, body').animate({
                     scrollTop: scrollTo
                 }, 200);
             });
 
-            $(".start-quizz-bloc").click(function() {
+            $(".start-quizz-bloc").click(function () {
                 self.history.unshift(['NAVINTRO']);
                 self.displayQuizz();
                 $(".button-solutions").removeClass("active");
                 $(".button-quizz").addClass("active");
             });
 
-            $(".solutions-bloc").click(function() {
+            $(".solutions-bloc").click(function () {
                 app.displayAllSolutions();
                 $(".button-quizz").removeClass("active");
                 $('.button-comparateur').removeClass('active');
                 $(".button-solutions").addClass("active");
-                
-
             });
 
-            $(".footer-warning a").click(function() {
+            $(".comparateur-bloc").click(function () {
+                app.displayAllComparateur();
+                $(".button-quizz").removeClass("active");
+                $('.button-comparateur').addClass('active');
+                $(".button-solutions").removeClass("active");
+            });
+
+            $(".footer-warning a").click(function () {
                 $(".footer-warning").hide();
             });
 
-            $("form").submit(function(e) {
+            $("form").submit(function (e) {
                 e.preventDefault();
             });
 
@@ -1300,54 +1310,54 @@ $(document).ready(function() {
             var displayParam = self._parameter(window.location, 'display');
             if (displayParam != "") {
                 switch (displayParam) {
-                case 'NAVQUIZZFR':
-                    self.currentNav = 'NAVQUIZZ';
-                    $(".button-solutions").removeClass("active");
-                    $(".button-quizz").addClass("active");
-                    self.lang = "FR";
-                    $(".button-lang-en").removeClass("active");
-                    $(".button-lang-fr").addClass("active");
-                    break;
-                case 'NAVQUIZZEN':
-                    self.currentNav = 'NAVQUIZZ';
-                    $(".button-solutions").removeClass("active");
-                    $(".button-quizz").addClass("active");
-                    self.lang = "EN";
-                    $(".button-lang-en").addClass("active");
-                    $(".button-lang-fr").removeClass("active");
-                    break;
-                case 'NAVBENCHMARKFR':
-                    self.currentNav = 'NAVBENCHMARK';
-                    $(".button-quizz").removeClass("active");
-                    $(".button-solutions").addClass("active");
-                    self.lang = "FR";
-                    $(".button-lang-en").removeClass("active");
-                    $(".button-lang-fr").addClass("active");
-                    break;
-                case 'NAVBENCHMARKEN':
-                    self.currentNav = 'NAVBENCHMARK';
-                    $(".button-quizz").removeClass("active");
-                    $(".button-solutions").addClass("active");
-                    self.lang = "EN";
-                    $(".button-lang-en").addClass("active");
-                    $(".button-lang-fr").removeClass("active");
-                    break;
-                case 'NAVCOMPARATEURFR':
-                    self.currentNav = 'NAVCOMPARATEUR';
-                    $(".button-quizz").removeClass("active");
-                    $(".button-comparateur").addClass("active");
-                    self.lang = "FR";
-                    $(".button-lang-en").removeClass("active");
-                    $(".button-lang-fr").addClass("active");
-                    break;
-                case 'NAVCOMPARATEUREN':
-                    self.currentNav = 'NAVCOMPARATEUR';
-                    $(".button-quizz").removeClass("active");
-                    $(".button-comparateur").addClass("active");
-                    self.lang = "EN";
-                    $(".button-lang-en").addClass("active");
-                    $(".button-lang-fr").removeClass("active");
-                    break;
+                    case 'NAVQUIZZFR':
+                        self.currentNav = 'NAVQUIZZ';
+                        $(".button-solutions").removeClass("active");
+                        $(".button-quizz").addClass("active");
+                        self.lang = "FR";
+                        $(".button-lang-en").removeClass("active");
+                        $(".button-lang-fr").addClass("active");
+                        break;
+                    case 'NAVQUIZZEN':
+                        self.currentNav = 'NAVQUIZZ';
+                        $(".button-solutions").removeClass("active");
+                        $(".button-quizz").addClass("active");
+                        self.lang = "EN";
+                        $(".button-lang-en").addClass("active");
+                        $(".button-lang-fr").removeClass("active");
+                        break;
+                    case 'NAVBENCHMARKFR':
+                        self.currentNav = 'NAVBENCHMARK';
+                        $(".button-quizz").removeClass("active");
+                        $(".button-solutions").addClass("active");
+                        self.lang = "FR";
+                        $(".button-lang-en").removeClass("active");
+                        $(".button-lang-fr").addClass("active");
+                        break;
+                    case 'NAVBENCHMARKEN':
+                        self.currentNav = 'NAVBENCHMARK';
+                        $(".button-quizz").removeClass("active");
+                        $(".button-solutions").addClass("active");
+                        self.lang = "EN";
+                        $(".button-lang-en").addClass("active");
+                        $(".button-lang-fr").removeClass("active");
+                        break;
+                    case 'NAVCOMPARATEURFR':
+                        self.currentNav = 'NAVCOMPARATEUR';
+                        $(".button-quizz").removeClass("active");
+                        $(".button-comparateur").addClass("active");
+                        self.lang = "FR";
+                        $(".button-lang-en").removeClass("active");
+                        $(".button-lang-fr").addClass("active");
+                        break;
+                    case 'NAVCOMPARATEUREN':
+                        self.currentNav = 'NAVCOMPARATEUR';
+                        $(".button-quizz").removeClass("active");
+                        $(".button-comparateur").addClass("active");
+                        self.lang = "EN";
+                        $(".button-lang-en").addClass("active");
+                        $(".button-lang-fr").removeClass("active");
+                        break;
                 }
             }
 
@@ -1361,10 +1371,10 @@ $(document).ready(function() {
                 self._stickyMenuHook();
             });
 
-            $(window).resize(function() {
+            $(window).resize(function () {
                 self._resizeVideoContainerHook();
             });
-            $(window).scroll(function() {
+            $(window).scroll(function () {
                 self._paralaxHook();
                 self._stickyMenuHook();
                 self._overlayMenuHook();
@@ -1372,7 +1382,7 @@ $(document).ready(function() {
 
             console.log("app initialized...");
         },
-        displayAllSolutions: function() {
+        displayAllSolutions: function () {
             this.currentNav = 'NAVBENCHMARK';
             $('.button-comparateur').removeClass('active');
             $("#section-intro").hide();
@@ -1406,7 +1416,7 @@ $(document).ready(function() {
             $("#section-solutions").fadeIn();
         },
 
-        displayAllComparateur: function() {
+        displayAllComparateur: function () {
             this.currentNav = 'NAVCOMPARATEUR';
             $("#section-intro").hide();
             $("#section-quizz").hide();
@@ -1428,16 +1438,16 @@ $(document).ready(function() {
             this._attachComparateurHandlers();
         },
 
-        _renderStars: function(n) {
+        _renderStars: function (n) {
             var stars = '';
-            for(var i=1;i<=5;i++) {
-                if(i<=n) stars += '<span class="icon icon-star-full">★</span>';
+            for (var i = 1; i <= 5; i++) {
+                if (i <= n) stars += '<span class="icon icon-star-full">★</span>';
                 else stars += '<span class="icon icon-star-empty">☆</span>';
             }
             return stars;
         },
 
-        _buildComparateurUI: function() {
+        _buildComparateurUI: function () {
             // build select options from vendorSolutions
             var options = '';
             Object.keys(conf_apims_notes).forEach(function (vendor) {
@@ -1449,7 +1459,7 @@ $(document).ready(function() {
             html += '<div class="col-md-5">';
             html += '<div class="compare-select-wrapper">';
             html += '<label for="compare-left">Solution 1</label>';
-            html += '<select id="compare-left" class="form-control">'+options+'</select>';
+            html += '<select id="compare-left" class="form-control">' + options + '</select>';
             html += '</div>';
             html += '</div>';
             html += '<div class="col-md-2 text-center comparateur-vs">';
@@ -1458,14 +1468,14 @@ $(document).ready(function() {
             html += '<div class="col-md-5">';
             html += '<div class="compare-select-wrapper">';
             html += '<label for="compare-right">Solution 2</label>';
-            html += '<select id="compare-right" class="form-control">'+options+'</select>';
+            html += '<select id="compare-right" class="form-control">' + options + '</select>';
             html += '</div>';
             html += '</div>';
             html += '</div>';
 
             // features rows (derive from conf_apims_notes first vendor)
             var features = [];
-            for(var k in conf_apims_notes) {
+            for (var k in conf_apims_notes) {
                 features = Object.keys(conf_apims_notes[k]);
                 break;
             }
@@ -1474,11 +1484,11 @@ $(document).ready(function() {
             tableHtml += '<table class="table table-bordered" id="comparateur-table">';
             tableHtml += '<thead><tr><th class="feature-col">Feature</th><th id="col-left" class="solution-col" data-default-label="Solution 1">Solution 1</th><th id="col-right" class="solution-col" data-default-label="Solution 2">Solution 2</th></tr></thead>';
             tableHtml += '<tbody>';
-            for(var f=0; f<features.length; f++) {
-                tableHtml += '<tr data-feature="'+features[f]+'">';
-                tableHtml += '<td>'+features[f]+'</td>';
-                tableHtml += '<td class="val-left">'+this._renderStars(0)+'</td>';
-                tableHtml += '<td class="val-right">'+this._renderStars(0)+'</td>';
+            for (var f = 0; f < features.length; f++) {
+                tableHtml += '<tr data-feature="' + features[f] + '">';
+                tableHtml += '<td>' + features[f] + '</td>';
+                tableHtml += '<td class="val-left">' + this._renderStars(0) + '</td>';
+                tableHtml += '<td class="val-right">' + this._renderStars(0) + '</td>';
                 tableHtml += '</tr>';
             }
             tableHtml += '</tbody>';
@@ -1495,15 +1505,15 @@ $(document).ready(function() {
             return html;
         },
 
-        _attachComparateurHandlers: function() {
+        _attachComparateurHandlers: function () {
             var self = this;
             var vendors = Object.keys(conf_apims_notes);
 
-            if(vendors.length) {
+            if (vendors.length) {
                 $('#compare-left').val(vendors[0]);
                 var second = vendors[0];
-                for(var i = 0; i < vendors.length; i++) {
-                    if(vendors[i] !== vendors[0]) {
+                for (var i = 0; i < vendors.length; i++) {
+                    if (vendors[i] !== vendors[0]) {
                         second = vendors[i];
                         break;
                     }
@@ -1511,19 +1521,19 @@ $(document).ready(function() {
                 $('#compare-right').val(second);
             }
 
-            var handleChange = function(triggerSource) {
+            var handleChange = function (triggerSource) {
                 var left = $('#compare-left').val();
                 var right = $('#compare-right').val();
 
-                if(left && right && left === right) {
+                if (left && right && left === right) {
                     var fallback = '';
-                    for(var j = 0; j < vendors.length; j++) {
-                        if(vendors[j] !== left) {
+                    for (var j = 0; j < vendors.length; j++) {
+                        if (vendors[j] !== left) {
                             fallback = vendors[j];
                             break;
                         }
                     }
-                    if(triggerSource === 'compare-left') {
+                    if (triggerSource === 'compare-left') {
                         $('#compare-right').val(fallback);
                         right = $('#compare-right').val();
                     } else {
@@ -1536,13 +1546,13 @@ $(document).ready(function() {
 
             $(document).off('change', '#compare-left');
             $(document).off('change', '#compare-right');
-            $(document).on('change', '#compare-left, #compare-right', function() {
+            $(document).on('change', '#compare-left, #compare-right', function () {
                 handleChange(this.id);
             });
 
             self._refreshComparateur($('#compare-left').val(), $('#compare-right').val());
         },
-        _refreshComparateur: function(left, right) {
+        _refreshComparateur: function (left, right) {
             left = left || '';
             right = right || '';
             this._updateComparateurHeader('#col-left', left);
@@ -1550,37 +1560,37 @@ $(document).ready(function() {
             this._updateComparateurOptionStates(left, right);
             this._updateComparateurTable(left, right);
         },
-        _updateComparateurHeader: function(selector, label) {
+        _updateComparateurHeader: function (selector, label) {
             var $target = $(selector);
             var defaultLabel = $target.data('defaultLabel') || '';
             var vendor = this._findVendorByLabel(label);
             var title = label || defaultLabel;
             var logo = vendor && vendor.logo ? vendor.logo : '';
             var html = '<div class="compare-header">';
-            if(logo) {
-                html += '<img src="'+logo+'" alt="'+title+' logo" title="'+title+'">';
+            if (logo) {
+                html += '<img src="' + logo + '" alt="' + title + ' logo" title="' + title + '">';
             }
             else {
-                html += '<span>'+title+'</span>';
+                html += '<span>' + title + '</span>';
             }
             html += '</div>';
             $target.html(html);
         },
-        _updateComparateurOptionStates: function(left, right) {
+        _updateComparateurOptionStates: function (left, right) {
             var $left = $('#compare-left option');
             var $right = $('#compare-right option');
             $left.prop('disabled', false);
             $right.prop('disabled', false);
-            if(right) {
-                $left.filter('[value="'+right+'"]').prop('disabled', true);
+            if (right) {
+                $left.filter('[value="' + right + '"]').prop('disabled', true);
             }
-            if(left) {
-                $right.filter('[value="'+left+'"]').prop('disabled', true);
+            if (left) {
+                $right.filter('[value="' + left + '"]').prop('disabled', true);
             }
         },
-        _updateComparateurTable: function(left, right) {
+        _updateComparateurTable: function (left, right) {
             var self = this;
-            $('#comparateur-table tbody tr').each(function() {
+            $('#comparateur-table tbody tr').each(function () {
                 var feature = $(this).data('feature');
                 var leftNote = (conf_apims_notes[left] && conf_apims_notes[left][feature]) ? conf_apims_notes[left][feature] : 0;
                 var rightNote = (conf_apims_notes[right] && conf_apims_notes[right][feature]) ? conf_apims_notes[right][feature] : 0;
@@ -1588,32 +1598,32 @@ $(document).ready(function() {
                 $(this).find('.val-right').html(self._renderStars(rightNote));
             });
         },
-        _findVendorByLabel: function(label) {
-            if(!label) {
+        _findVendorByLabel: function (label) {
+            if (!label) {
                 return null;
             }
             var normalized = label.toLowerCase();
-            for(var i = 0; i < this.conf.vendorSolutions.length; i++) {
+            for (var i = 0; i < this.conf.vendorSolutions.length; i++) {
                 var vendor = this.conf.vendorSolutions[i];
                 var name = (vendor.name || '').toLowerCase();
                 var id = (vendor.id || '').toLowerCase();
-                if(name) {
-                    if(normalized === name || normalized.indexOf(name) !== -1 || name.indexOf(normalized) !== -1) {
+                if (name) {
+                    if (normalized === name || normalized.indexOf(name) !== -1 || name.indexOf(normalized) !== -1) {
                         return vendor;
                     }
                 }
-                if(id) {
-                    if(normalized === id || normalized.indexOf(id) !== -1 || id.indexOf(normalized) !== -1) {
+                if (id) {
+                    if (normalized === id || normalized.indexOf(id) !== -1 || id.indexOf(normalized) !== -1) {
                         return vendor;
                     }
                 }
             }
             return null;
         },
-        displayFail: function(failID) {
+        displayFail: function (failID) {
             var fail = null;
-            for(var i = 0; i < this.conf.quizz.fails.length; i++) {
-                if(this.conf.quizz.fails[i].id==failID) {
+            for (var i = 0; i < this.conf.quizz.fails.length; i++) {
+                if (this.conf.quizz.fails[i].id == failID) {
                     fail = this.conf.quizz.fails[i];
                     break;
                 }
@@ -1632,18 +1642,18 @@ $(document).ready(function() {
             $("form").hide();
             $("#section-quizz").html(htmlfail);
         },
-        displayQuizzSolutions: function(apims) {
+        displayQuizzSolutions: function (apims) {
             this.apims = apims;
             var self = this;
             // var htmlapims = '<div class="row"><div class="title">' + this._getCMSValue('home', 'section-quizz-title') + '</div></div>';
             var htmlapims = '<div class="row"><h2 class="title">' + this._getCMSValue('home', 'section-quizz-title') + '</h2></div>';
             htmlapims += '<div class="row">';
-            for(var i = 0; i < apims.length; i++) {
+            for (var i = 0; i < apims.length; i++) {
                 var apim = apims[i];
-                for(var j = 0; j < self.conf.vendorSolutions.length; j++) {
-                    if(apim == self.conf.vendorSolutions[j].id) {
+                for (var j = 0; j < self.conf.vendorSolutions.length; j++) {
+                    if (apim == self.conf.vendorSolutions[j].id) {
                         htmlapims += self._generateSummarySolutionBloc(self.conf.vendorSolutions[j]);
-                        if(i != 0 && (i + 1) % 3 === 0) {
+                        if (i != 0 && (i + 1) % 3 === 0) {
                             htmlapims += '</div>';
                             htmlapims += '<div class="row">';
                         }
@@ -1662,12 +1672,12 @@ $(document).ready(function() {
             $("#section-solutions").fadeIn();
 
             // for all apims, attach event on click to go to detail bloc
-            apims.forEach(function(apim) {
+            apims.forEach(function (apim) {
                 var scrollTo = "#bloc-solution-" + apim;
-                $("#" + apim + "").click(function(e) {
+                $("#" + apim + "").click(function (e) {
                     e.preventDefault();
                     $('html, body').animate({
-                        scrollTop: $(scrollTo).offset().top -70
+                        scrollTop: $(scrollTo).offset().top - 70
                     }, 200);
 
                 });
@@ -1675,14 +1685,14 @@ $(document).ready(function() {
 
             $(".scroll-to-link").fadeIn();
         },
-        displaySolutionsDetailed: function(apims) {
+        displaySolutionsDetailed: function (apims) {
             this.apims = apims;
             var self = this;
             var htmlapims = '';
-            for(var i = 0; i < apims.length; i++) {
+            for (var i = 0; i < apims.length; i++) {
                 var apim = apims[i];
-                for(var j = 0; j < self.conf.vendorSolutions.length; j++) {
-                    if(apim == self.conf.vendorSolutions[j].id) {
+                for (var j = 0; j < self.conf.vendorSolutions.length; j++) {
+                    if (apim == self.conf.vendorSolutions[j].id) {
                         htmlapims += '<div class="row">';
                         htmlapims += self._generateDetailedSolutionBloc(self.conf.vendorSolutions[j]);
                         htmlapims += '</div>';
@@ -1694,17 +1704,17 @@ $(document).ready(function() {
             $("#solutionsplaceholder").html(htmlapims);
 
             // for all apims, attach event on click to display pros & cons
-            apims.forEach(function(apim) {
+            apims.forEach(function (apim) {
                 var selectorCons = "#bloc-solution-" + apim + " .button-cons";
                 var selectorPros = "#bloc-solution-" + apim + " .button-pros";
-                $(selectorCons).click(function(e) {
+                $(selectorCons).click(function (e) {
                     e.preventDefault();
                     $("#bloc-solution-" + apim + " .bloc-pros").hide();
                     $("#bloc-solution-" + apim + " .bloc-cons").fadeIn();
                     $(selectorPros).removeClass("active");
                     $(selectorCons).addClass("active");
                 });
-                $(selectorPros).click(function(e) {
+                $(selectorPros).click(function (e) {
                     e.preventDefault();
                     $("#bloc-solution-" + apim + " .bloc-cons").hide();
                     $("#bloc-solution-" + apim + " .bloc-pros").fadeIn();
@@ -1720,7 +1730,7 @@ $(document).ready(function() {
 
             $(".scroll-to-link").fadeIn();
         },
-        _generateQuizzBloc: function(quizzID, value) {
+        _generateQuizzBloc: function (quizzID, value) {
             var self = this;
             var question = this.conf.quizz.quizz[quizzID];
 
@@ -1730,11 +1740,11 @@ $(document).ready(function() {
 
             html += '<form id="form-' + quizzID + '" class="needs-validation">';
             html += '<h1 class="mb-3">' + question["question-" + self.lang] + '</h1>';
-            for(var i = 0; i < question.answers.length; i++) {
+            for (var i = 0; i < question.answers.length; i++) {
                 var answer = question.answers[i];
                 var id = 'ID' + answer.goto + '';
                 html += '<div class="form-check">';
-                if(answer.goto == value) {
+                if (answer.goto == value) {
                     html += '<input class="form-check-input" type="radio" name="radio-' + quizzID + '" id="' + id + '" value="' + answer.goto + '" checked>';
                 } else {
                     html += '<input class="form-check-input" type="radio" name="radio-' + quizzID + '" id="' + id + '" value="' + answer.goto + '">';
@@ -1753,16 +1763,16 @@ $(document).ready(function() {
 
             return html;
         },
-        _generateSummarySolutionBloc: function(apim) {
+        _generateSummarySolutionBloc: function (apim) {
             var html = '<div class="col-md-4">';
-            html += '<div id="'+apim.id+'" class="bloc bloc-apim">';
+            html += '<div id="' + apim.id + '" class="bloc bloc-apim">';
             html += '<div class="logo-container"><img src="' + apim.logo + '" alt="' + apim.name + '"></div>';
             html += '<h3>' + this._getCMSValue('home', 'bloc-solutions-button-knowmore') + '</h3>';
             html += '</div>';
             html += '</div>';
             return html;
         },
-        _generateDetailedSolutionBloc: function(apim) {
+        _generateDetailedSolutionBloc: function (apim) {
 
             var html = '';
             html += '<div class="col-md-12">';
@@ -1772,7 +1782,7 @@ $(document).ready(function() {
 
             html += '<ul class="nav nav-tabs">';
             html += '<li class="nav-item">';
-            html += '<a class="nav-link active button-pros" href="#"><img src="./skin2/img/plus-jaune.png" alt="cons- '+ apim.name + '"></a>';
+            html += '<a class="nav-link active button-pros" href="#"><img src="./skin2/img/plus-jaune.png" alt="cons- ' + apim.name + '"></a>';
             html += '</li>';
             html += '<li class="nav-item">';
             html += '<a class="nav-link button-cons" href="#"><img src="./skin2/img/moins-jaune.png" alt="cons- \'+ apim.name + \'"></a>';
@@ -1781,7 +1791,7 @@ $(document).ready(function() {
 
             html += '<div class="bloc">';
             html += '<ul class="bloc-pros">';
-            for(var i = 0; i < apim["pros-" + this.lang].length; i++) {
+            for (var i = 0; i < apim["pros-" + this.lang].length; i++) {
                 html += '<li>';
                 html += '&gt;&nbsp;' + apim["pros-" + this.lang][i] + '<br />';
                 html += '</li>';
@@ -1789,7 +1799,7 @@ $(document).ready(function() {
             html += '</ul>';
 
             html += '<ul class="bloc-cons">';
-            for(var i = 0; i < apim["cons-" + this.lang].length; i++) {
+            for (var i = 0; i < apim["cons-" + this.lang].length; i++) {
                 html += '<li>';
                 html += '&gt;&nbsp;' + apim["cons-" + this.lang][i] + '<br />';
                 html += '</li>';

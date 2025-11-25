@@ -1,25 +1,58 @@
-@font-face{font-family:'Avenir';src:url(../fonts/AvenirLTCom-Book.eot);
-    src:url(../fonts/AvenirLTCom-Book.eot#1576571782) format('embedded-opentype'),url(../fonts/AvenirLTCom-Book.woff2) format('woff2'),url(../fonts/AvenirLTCom-Book.woff) format('woff'),url(../fonts/AvenirLTCom-Book.ttf) format('truetype'),url(../fonts/AvenirLTCom-Book.svg#AvenirLTCom-Book) format('svg');
-    font-weight:400;
-    font-style:normal}
-@font-face{font-family:'Avenir';src:url(../fonts/AvenirLTCom-Light.eot);src:url(../fonts/AvenirLTCom-Light.eot#1576571782) format('embedded-opentype'),url(../fonts/AvenirLTCom-Light.woff2) format('woff2'),url(../fonts/AvenirLTCom-Light.woff) format('woff'),url(../fonts/AvenirLTCom-Light.ttf) format('truetype'),url(../fonts/AvenirLTCom-Light.svg#AvenirLTCom-Light) format('svg');
-    font-weight:300;
-    font-style:normal}
-@font-face{font-family:'Avenir';src:url(../fonts/AvenirLTCom-Medium.eot);src:url(../fonts/AvenirLTCom-Medium.eot#1576571782) format('embedded-opentype'),url(../fonts/AvenirLTCom-Medium.woff2) format('woff2'),url(../fonts/AvenirLTCom-Medium.woff) format('woff'),url(../fonts/AvenirLTCom-Medium.ttf) format('truetype'),url(../fonts/AvenirLTCom-Medium.svg#AvenirLTCom-Medium) format('svg');
-    font-weight:500;
-    font-style:normal}
-@font-face{font-family:'Avenir';src:url(../fonts/AvenirLTCom-MediumOblique.eot);src:url(../fonts/AvenirLTCom-MediumOblique.eot#1576571782) format('embedded-opentype'),url(../fonts/AvenirLTCom-MediumOblique.woff2) format('woff2'),url(../fonts/AvenirLTCom-MediumOblique.woff) format('woff'),url(../fonts/AvenirLTCom-MediumOblique.ttf) format('truetype'),url(../fonts/AvenirLTCom-MediumOblique.svg#AvenirLTCom-MediumOblique) format('svg');
-    font-weight:500;
-    font-style:italic}
-@font-face{font-family:'Avenir';src:url(../fonts/AvenirLTCom-Heavy.eot);src:url(../fonts/AvenirLTCom-Heavy.eot#1576571782) format('embedded-opentype'),url(../fonts/AvenirLTCom-Heavy.woff2) format('woff2'),url(../fonts/AvenirLTCom-Heavy.woff) format('woff'),url(../fonts/AvenirLTCom-Heavy.ttf) format('truetype'),url(../fonts/AvenirLTCom-Heavy.svg#AvenirLTCom-Heavy) format('svg');
-    font-weight:700;
-    font-style:normal}
-@font-face{font-family:'Avenir';src:url(../fonts/AvenirLTCom-Black.eot);src:url(../fonts/AvenirLTCom-Black.eot#1576571782) format('embedded-opentype'),url(../fonts/AvenirLTCom-Black.woff2) format('woff2'),url(../fonts/AvenirLTCom-Black.woff) format('woff'),url(../fonts/AvenirLTCom-Black.ttf) format('truetype'),url(../fonts/AvenirLTCom-Black.svg#AvenirLTCom-Black) format('svg');
-    font-weight:900;
-    font-style:normal}
-@font-face{font-family:'Cutoff Pro';src:url(../fonts/CutoffPro-BoldItalic.eot);src:url(../fonts/CutoffPro-BoldItalic.eot#1576571782) format('embedded-opentype'),url(../fonts/CutoffPro-BoldItalic.woff2) format('woff2'),url(../fonts/CutoffPro-BoldItalic.woff) format('woff'),url(../fonts/CutoffPro-BoldItalic.ttf) format('truetype'),url(../fonts/CutoffPro-BoldItalic.svg#CutoffPro-BoldItalic) format('svg');
-    font-weight:700;
-    font-style:italic}
+@font-face {
+    font-family: 'Avenir';
+    src: url(../fonts/AvenirLTCom-Book.eot);
+    src: url(../fonts/AvenirLTCom-Book.eot#1576571782) format('embedded-opentype'), url(../fonts/AvenirLTCom-Book.woff2) format('woff2'), url(../fonts/AvenirLTCom-Book.woff) format('woff'), url(../fonts/AvenirLTCom-Book.ttf) format('truetype'), url(../fonts/AvenirLTCom-Book.svg#AvenirLTCom-Book) format('svg');
+    font-weight: 400;
+    font-style: normal
+}
+
+@font-face {
+    font-family: 'Avenir';
+    src: url(../fonts/AvenirLTCom-Light.eot);
+    src: url(../fonts/AvenirLTCom-Light.eot#1576571782) format('embedded-opentype'), url(../fonts/AvenirLTCom-Light.woff2) format('woff2'), url(../fonts/AvenirLTCom-Light.woff) format('woff'), url(../fonts/AvenirLTCom-Light.ttf) format('truetype'), url(../fonts/AvenirLTCom-Light.svg#AvenirLTCom-Light) format('svg');
+    font-weight: 300;
+    font-style: normal
+}
+
+@font-face {
+    font-family: 'Avenir';
+    src: url(../fonts/AvenirLTCom-Medium.eot);
+    src: url(../fonts/AvenirLTCom-Medium.eot#1576571782) format('embedded-opentype'), url(../fonts/AvenirLTCom-Medium.woff2) format('woff2'), url(../fonts/AvenirLTCom-Medium.woff) format('woff'), url(../fonts/AvenirLTCom-Medium.ttf) format('truetype'), url(../fonts/AvenirLTCom-Medium.svg#AvenirLTCom-Medium) format('svg');
+    font-weight: 500;
+    font-style: normal
+}
+
+@font-face {
+    font-family: 'Avenir';
+    src: url(../fonts/AvenirLTCom-MediumOblique.eot);
+    src: url(../fonts/AvenirLTCom-MediumOblique.eot#1576571782) format('embedded-opentype'), url(../fonts/AvenirLTCom-MediumOblique.woff2) format('woff2'), url(../fonts/AvenirLTCom-MediumOblique.woff) format('woff'), url(../fonts/AvenirLTCom-MediumOblique.ttf) format('truetype'), url(../fonts/AvenirLTCom-MediumOblique.svg#AvenirLTCom-MediumOblique) format('svg');
+    font-weight: 500;
+    font-style: italic
+}
+
+@font-face {
+    font-family: 'Avenir';
+    src: url(../fonts/AvenirLTCom-Heavy.eot);
+    src: url(../fonts/AvenirLTCom-Heavy.eot#1576571782) format('embedded-opentype'), url(../fonts/AvenirLTCom-Heavy.woff2) format('woff2'), url(../fonts/AvenirLTCom-Heavy.woff) format('woff'), url(../fonts/AvenirLTCom-Heavy.ttf) format('truetype'), url(../fonts/AvenirLTCom-Heavy.svg#AvenirLTCom-Heavy) format('svg');
+    font-weight: 700;
+    font-style: normal
+}
+
+@font-face {
+    font-family: 'Avenir';
+    src: url(../fonts/AvenirLTCom-Black.eot);
+    src: url(../fonts/AvenirLTCom-Black.eot#1576571782) format('embedded-opentype'), url(../fonts/AvenirLTCom-Black.woff2) format('woff2'), url(../fonts/AvenirLTCom-Black.woff) format('woff'), url(../fonts/AvenirLTCom-Black.ttf) format('truetype'), url(../fonts/AvenirLTCom-Black.svg#AvenirLTCom-Black) format('svg');
+    font-weight: 900;
+    font-style: normal
+}
+
+@font-face {
+    font-family: 'Cutoff Pro';
+    src: url(../fonts/CutoffPro-BoldItalic.eot);
+    src: url(../fonts/CutoffPro-BoldItalic.eot#1576571782) format('embedded-opentype'), url(../fonts/CutoffPro-BoldItalic.woff2) format('woff2'), url(../fonts/CutoffPro-BoldItalic.woff) format('woff'), url(../fonts/CutoffPro-BoldItalic.ttf) format('truetype'), url(../fonts/CutoffPro-BoldItalic.svg#CutoffPro-BoldItalic) format('svg');
+    font-weight: 700;
+    font-style: italic
+}
 
 @font-face {
     font-family: 'icomoon';
@@ -28,6 +61,7 @@
     font-weight: normal;
     font-style: normal;
 }
+
 [class^="icon-"],
 [class*=" icon-"] {
     /* use !important to prevent issues with browser extensions that change fonts */
@@ -42,72 +76,97 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
 .icon-shape-c:before {
     content: "\e906";
 }
+
 .icon-shape-play:before {
     content: "\e910";
 }
+
 .icon-chevron-left:before {
     content: "\e900";
 }
+
 .icon-chevron-right:before {
     content: "\e901";
 }
+
 .icon-close:before {
     content: "\e902";
 }
+
 .icon-loup:before {
     content: "\e903";
 }
+
 .icon-shape-chevron:before {
     content: "\e904";
 }
+
 .icon-shape-logo:before {
     content: "\e905";
 }
+
 .icon-shape-plus:before {
     content: "\e907";
 }
+
 .icon-shape-target:before {
     content: "\e908";
 }
+
 .icon-star:before {
     content: "\e909";
 }
+
 .icon-video-play-2:before {
     content: "\e90a";
 }
+
 .icon-video-play:before {
     content: "\e90b";
 }
+
 .icon-arrow-down:before {
     content: "\e90c";
 }
+
 .icon-arrow-left:before {
     content: "\e90d";
 }
+
 .icon-arrow-right:before {
     content: "\e90e";
 }
+
 .icon-arrow-up:before {
     content: "\e90f";
 }
+
 .icon-twitter:before {
     content: "\f099";
 }
+
 .icon-facebook:before,
 .icon-facebook-f:before {
     content: "\f09a";
 }
+
 .icon-linkedin:before {
     content: "\f0e1";
 }
+
 .icon-instagram:before {
     content: "\f16d";
 }
 
-html, button, input, select, textarea {
+html,
+button,
+input,
+select,
+textarea {
     color: #0e2356;
     font: normal 1em/1.2 'Avenir', Arial, Helvetica, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -163,7 +222,7 @@ blockquote {
 }
 
 #home-bg-container div.transparent {
-    opacity:0;
+    opacity: 0;
 
 }
 
@@ -176,6 +235,7 @@ blockquote {
     top: 0;
     left: 0;
 }
+
 #nav-overlay a {
     color: #FFF;
     position: fixed;
@@ -188,18 +248,19 @@ blockquote {
 #nav-overlay .blog-link {
     left: 60px;
     font-weight: 300;
-    transform: rotate(-90deg) translate(0,-50%);
+    transform: rotate(-90deg) translate(0, -50%);
 }
 
 #nav-overlay .contact-link {
     right: 60px;
     font-weight: 700;
-    transform: rotate(-90deg) translate(0,100%);
+    transform: rotate(-90deg) translate(0, 100%);
 }
+
 #nav-overlay .icon:before {
     font-size: 0.6em;
-    top:-12px;
-    transform:  rotate(-45deg);
+    top: -12px;
+    transform: rotate(-45deg);
     display: inline-block;
 }
 
@@ -224,8 +285,8 @@ blockquote {
     display: none;
 }
 
-#nav-overlay .scroll-to-link:hover{
-    padding-left:25px;
+#nav-overlay .scroll-to-link:hover {
+    padding-left: 25px;
     width: 70px;
 }
 
@@ -238,10 +299,12 @@ blockquote {
     left: 0;
     overflow: hidden;
 }
+
 .shapes .shape-container {
     position: absolute;
     color: #00afcb;
 }
+
 .shapes .shape-container .icon {
     display: block;
     position: absolute;
@@ -249,35 +312,42 @@ blockquote {
     left: 0;
     opacity: 0.6;
 }
+
 .shapes .shape-container svg {
     visibility: hidden;
     width: 140vmin;
     height: 50vmin;
 }
+
 .shapes .shape-c,
 .shapes .shape-chevron {
     top: 10vh;
     left: -9vw;
     font-size: 8.2vmin;
 }
+
 .shapes .shape-target {
     top: -20vh;
     left: 20vw;
     font-size: 6.5vmin;
 }
+
 .shapes .shape-logo {
     top: 10vh;
     left: 40vw;
     font-size: 7.9vmin;
 }
+
 .shapes .shape-logo .icon {
     opacity: 0.5;
 }
+
 .shapes .shape-play {
     top: 30vh;
     left: 50vw;
     font-size: 4.5vmin;
 }
+
 .shapes .shape-plus {
     top: 85vh;
     left: 44vw;
@@ -336,6 +406,7 @@ header .navbar-expand-sm .navbar-nav .nav-link {
     padding-right: 0;
     padding-left: 0;
 }
+
 header a:hover:before {
     -webkit-transform: scaleX(1);
     transform: scaleX(1);
@@ -348,7 +419,7 @@ header li.active a:before {
 
 header .icon:before {
     font-size: 0.8em;
-    transform:  rotate(-45deg);
+    transform: rotate(-45deg);
     display: inline-block;
 }
 
@@ -361,17 +432,21 @@ header:first-of-type #logo-octo {
     z-index: 10000;
 }
 
-header:first-of-type a, header:first-of-type .navbar-light .navbar-brand, header:first-of-type .navbar-light .navbar-nav .nav-link {
+header:first-of-type a,
+header:first-of-type .navbar-light .navbar-brand,
+header:first-of-type .navbar-light .navbar-nav .nav-link {
     font-size: 17px;
     color: #fff;
     padding-left: 0;
     padding-right: 0;
 }
+
 header:first-of-type a {
     display: block;
     padding: 2px 0;
     position: relative;
 }
+
 header:last-of-type a {
     display: block;
     padding: 2px 0;
@@ -429,13 +504,14 @@ header:last-of-type img {
 }
 
 header:last-of-type .navbar-light .navbar-brand {
-    color:#0E2356;
+    color: #0E2356;
 }
 
 header:last-of-type .navbar-nav li {
     vertical-align: middle;
     margin: 0 20px;
 }
+
 header:last-of-type .navbar-light .navbar-nav .nav-link {
     color: #0E2356;
     padding: 2px 0;
@@ -444,7 +520,7 @@ header:last-of-type .navbar-light .navbar-nav .nav-link {
 
 header:last-of-type .bg-light {
     background-color: #FFF !important;
-    box-shadow: 0 0 3px rgba(0,0,0,.1);
+    box-shadow: 0 0 3px rgba(0, 0, 0, .1);
 }
 
 #logo-octo:hover {
@@ -468,7 +544,9 @@ section {
     display: none;
 }
 
-#section-intro .bloc, #section-quizz .bloc, #section-solutions .bloc {
+#section-intro .bloc,
+#section-quizz .bloc,
+#section-solutions .bloc {
     padding: 14px 18px;
     border: 1px solid #fff;
     border-radius: 16px;
@@ -477,13 +555,16 @@ section {
     height: 100%;
 }
 
-#section-intro .bloc .icon, #section-solutions .bloc .icon {
+#section-intro .bloc .icon,
+#section-solutions .bloc .icon {
     font-size: 14px;
 }
 
-#section-intro, #section-quizz {
+#section-intro,
+#section-quizz {
     padding-top: 100px;
 }
+
 #section-quizz .return-button {
     display: block;
     position: relative;
@@ -504,22 +585,30 @@ section {
     opacity: 1;
     border: none;
 }
+
 .start-quizz-bloc:hover {
     opacity: 0.8;
     cursor: pointer;
 }
-#section-intro .bloc h2, #section-quizz .bloc h2, #section-solutions .bloc h2 {
+
+#section-intro .bloc h2,
+#section-quizz .bloc h2,
+#section-solutions .bloc h2 {
     font-size: 24px;
     letter-spacing: 0.1em;
     font-weight: bold;
     text-transform: uppercase;
 }
-#section-intro .bloc h3, #section-quizz .bloc h3, #section-solutions .bloc h3 {
+
+#section-intro .bloc h3,
+#section-quizz .bloc h3,
+#section-solutions .bloc h3 {
     margin-top: 1px;
     font-size: 20px;
     letter-spacing: 0.05em;
     font-weight: 500;
 }
+
 #section-quizz .bloc-apim {
     text-align: center;
     height: 100%;
@@ -564,11 +653,17 @@ section {
     margin-top: -60px;
 }
 
-#section-quizz .form-check input, #section-quizz .form-check label {
+#section-quizz .form-check input,
+#section-quizz .form-check label {
     cursor: pointer;
 }
 
 .solutions-bloc:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.comparateur-bloc:hover {
     opacity: 0.8;
     cursor: pointer;
 }
@@ -580,12 +675,15 @@ section {
     border: none;
     height: 308px;
 }
+
 .fail-bloc .card-title {
     font-size: 6em;
 }
+
 .fail-bloc .card-text {
     font-size: 2.5em;
 }
+
 .fail-bloc img {
     float: right;
 }
@@ -752,6 +850,7 @@ section {
     background-color: #e6e8ed;
 
 }
+
 #section-solutions .nav-item {
     color: #0e2356;
     background-color: #c8ccd7;
@@ -759,6 +858,7 @@ section {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
+
 #section-solutions .nav-item a {
     text-align: center;
 }
@@ -781,8 +881,9 @@ section {
 #section-solutions .nav-tabs {
     border-bottom: 0;
 }
+
 #section-solutions .nav-tabs img {
-    width:25px;
+    width: 25px;
 }
 
 #section-solutions .bloc-edito {
@@ -806,7 +907,8 @@ section {
     margin-bottom: 40px;
 }
 
-#section-solutions .bloc-edito ul, #section-solutions .bloc-edito li {
+#section-solutions .bloc-edito ul,
+#section-solutions .bloc-edito li {
     margin: 0;
     padding: 0;
     list-style-type: none;
@@ -826,22 +928,27 @@ section {
     position: relative;
     display: none;
 }
+
 .footer div {
     text-align: center;
 }
+
 .footer ul {
     font-size: 16px;
     line-height: 113px !important;
     padding: 0;
 }
+
 .footer .links {
     text-align: right;
 }
+
 .footer li {
     display: inline-block;
     vertical-align: middle;
     padding: 0 5px;
 }
+
 .footer a {
     color: #0e2356;
 }
@@ -849,12 +956,15 @@ section {
 .footer img {
     width: 117px;
 }
+
 .footer .social {
     text-align: left;
 }
+
 .footer .social li {
     padding: 0 2px;
 }
+
 .footer .social a {
     display: block;
     width: 34px;
@@ -901,7 +1011,8 @@ section {
         left: 30px;
     }
 
-    #nav-overlay .blog-link, #nav-overlay .contact-link {
+    #nav-overlay .blog-link,
+    #nav-overlay .contact-link {
         display: none;
     }
 
@@ -909,12 +1020,14 @@ section {
         background-position: -700px 80px;
     }
 }
+
 /* Medium devices (tablets, 768px and up) */
 @media (max-width: 767px) {
 
     body {
         min-height: 300px;
     }
+
     body>img {
         display: none !important;
     }
@@ -922,6 +1035,7 @@ section {
     header:first-of-type .navbar {
         display: none;
     }
+
     header:first-of-type #logo-octo {
         margin-top: 0;
         width: 80px;
@@ -933,9 +1047,12 @@ section {
         background-position: center 45px;
         background-image: url('../img/Refcard_API_Management_jaune_siteAPI-mobile.jpg');
     }
-    #nav-overlay .blog-link, #nav-overlay .contact-link {
+
+    #nav-overlay .blog-link,
+    #nav-overlay .contact-link {
         display: none;
     }
+
     #section-intro-solutions h1 {
         font-size: 50px;
         font-weight: 900;
@@ -945,9 +1062,11 @@ section {
         padding-top: 15px;
 
     }
+
     #section-intro-solutions p {
         padding: 0;
     }
+
     #section-quizz .title {
         font-size: 30px;
         font-weight: 900;
@@ -956,11 +1075,13 @@ section {
         line-height: 44px;
         margin-top: -30px;
     }
+
     #section-solutions {
         background-color: #FFF;
     }
 
-    #solutionsplaceholder, #solutionsplaceholder div {
+    #solutionsplaceholder,
+    #solutionsplaceholder div {
         background-color: #FFF;
     }
 
@@ -968,6 +1089,7 @@ section {
     main {
         padding-top: 90px;
     }
+
     .start-quizz-bloc {
         margin-bottom: 20px;
     }
@@ -977,11 +1099,13 @@ section {
     #section-intro .bloc h2 {
         font-size: 1rem;
     }
+
     #section-intro .bloc h3 {
         font-size: 1rem;
     }
 
-    #section-quizz .bloc-apim, #section-intro .bloc  {
+    #section-quizz .bloc-apim,
+    #section-intro .bloc {
         margin-bottom: 16px;
         height: auto;
     }
@@ -991,9 +1115,11 @@ section {
         margin-top: -25px;
         padding-top: 157px;
     }
+
     .footer img {
         margin-top: -185px;
     }
+
     .footer ul {
         line-height: 0 !important;
         font-size: 12px;
@@ -1002,7 +1128,9 @@ section {
         margin-top: 11px;
         text-align: center;
     }
-    .footer .links, .footer .social {
+
+    .footer .links,
+    .footer .social {
         text-align: center;
     }
 
