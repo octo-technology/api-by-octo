@@ -984,22 +984,29 @@ $(document).ready(function () {
             } else {
                 windowHeight -= 150;
             }
-            $('#section-intro').css('height', '' + windowHeight + 'px');
+            $('#title-section').css('height', '' + windowHeight + 'px');
             $('#section-quizz').css('height', '' + windowHeight + 'px');
-            $('#section-intro-solutions').css('height', '' + windowHeight + 'px');
-            $('#section-intro-comparateur').css('height', '' + windowHeight + 'px');
             $('#section-comparateur').css('height', '' + windowHeight + 'px');
         },
         _stickyMenuHook: function () {
             var menu = $('header');
             var $window = $(window);
+            var logoOcto = $('#logo-octo');
+            var navbarBrand = $('#button-brand');
+            var mobileBrandName = $('#mobile-brand-name');
 
             var window_top_position = $window.scrollTop();
             if (window_top_position >= 200) {
                 menu.addClass('in-view');
+                logoOcto.fadeOut();
+                navbarBrand.fadeIn();
+                mobileBrandName.fadeIn();
             } else {
                 menu.removeClass('in-view');
                 $('.navbar-collapse').collapse('hide');
+                logoOcto.fadeIn();
+                navbarBrand.fadeOut();
+                mobileBrandName.fadeOut();
             }
         },
         _overlayMenuHook: function () {
@@ -1073,8 +1080,8 @@ $(document).ready(function () {
             }
         },
         _reDisplay: function () {
+            $('#title-section').hide();
             this.displayHome();
-            $('#section-intro-comparateur').hide();
             $('#section-comparateur').hide();
             $('.button-comparateur').removeClass('active');
             switch (this.currentNav) {
@@ -1087,6 +1094,9 @@ $(document).ready(function () {
                     break;
                 case 'NAVBENCHMARK':
                     this.displayAllSolutions();
+                    break;
+                case "NAVCOMPARATEUR":
+                    this.displayComparateur();
                     break;
             }
         },
@@ -1107,6 +1117,7 @@ $(document).ready(function () {
             $("footer:first-of-type").fadeIn();
         },
         displayIntro: function () {
+            $('#title-section').hide();
             this._setCMSValue('.button-quizz a', 'home', 'header-menu-quizz');
             this._setCMSValue('.start-quizz-bloc h2', 'home', 'bloc-quizz-title');
             this._setCMSValue('.start-quizz-bloc h3', 'home', 'bloc-quizz-subtitle');
@@ -1115,8 +1126,8 @@ $(document).ready(function () {
             this._setCMSValue('.comparateur-bloc h3', 'home', 'bloc-comparateur-subtitle');
             this._setCMSValue('.comparateur-bloc h2', 'home', 'bloc-comparateur-title');
             $("#section-intro").hide();
-            $("#section-intro-solutions").hide();
-            $("#section-intro-comparateur").hide();
+            // $("#section-intro-solutions").hide();
+            // $("#section-intro-comparateur").hide();
             this.quizzId = "ID1";
             $("form").hide();
             $("#section-quizz").hide();
@@ -1136,6 +1147,7 @@ $(document).ready(function () {
             $("#section-intro").fadeIn();
         },
         displayQuizz: function (id, value) {
+            $('#title-section').hide();
             var self = this;
             if (!id) {
                 id = "ID1";
@@ -1232,7 +1244,7 @@ $(document).ready(function () {
                 e.preventDefault();
                 window.location.hash = 'display=NAVCOMPARATEUR' + self.lang;
                 // show comparateur sections - for now reuse solutions content
-                app.displayAllComparateur();
+                app.displayComparateur();
                 $(".button-quizz").removeClass("active");
                 $(".button-solutions").removeClass("active");
                 $(".button-comparateur").addClass("active");
@@ -1283,7 +1295,7 @@ $(document).ready(function () {
             });
 
             $(".comparateur-bloc").click(function () {
-                app.displayAllComparateur();
+                app.displayComparateur();
                 $(".button-quizz").removeClass("active");
                 $('.button-comparateur').addClass('active');
                 $(".button-solutions").removeClass("active");
@@ -1384,14 +1396,15 @@ $(document).ready(function () {
         },
         displayAllSolutions: function () {
             this.currentNav = 'NAVBENCHMARK';
+            $('#title-section').show();
             $('.button-comparateur').removeClass('active');
             $("#section-intro").hide();
             $("#section-quizz").hide();
             $("#home-bg").addClass("transparent");
             $("#home-bg-open").addClass("transparent");
             $("#home-bg-solutions").removeClass("transparent");
-            this._setCMSValue('#section-intro-solutions h1', 'home', 'section-intro-solutions-title');
-            this._setCMSValue('#section-intro-solutions p', 'home', 'section-intro-solutions-subtitle');
+            this._setCMSValue('#title-section h1', 'home', 'section-intro-solutions-title');
+            this._setCMSValue('#title-section p', 'home', 'section-intro-solutions-subtitle');
 
             this.displaySolutionsDetailed([
                 "3SCALE",
@@ -1410,30 +1423,25 @@ $(document).ready(function () {
                 "WSO2"
             ]);
             // ensure comparateur is hidden when displaying solutions
-            $("#section-intro-comparateur").hide();
             $("#section-comparateur").hide();
-            $("#section-intro-solutions").fadeIn();
             $("#section-solutions").fadeIn();
         },
 
-        displayAllComparateur: function () {
+        displayComparateur: function () {
             this.currentNav = 'NAVCOMPARATEUR';
-            $("#section-intro").hide();
-            $("#section-quizz").hide();
+            $('#title-section').show();
             $("#home-bg").addClass("transparent");
             $("#home-bg-open").addClass("transparent");
             $("#home-bg-solutions").removeClass("transparent");
             // reuse the same CMS values as solutions for now
-            this._setCMSValue('#section-intro-comparateur h1', 'home', 'section-intro-comparateur-title');
-            this._setCMSValue('#section-intro-comparateur p', 'home', 'section-intro-comparateur-subtitle');
+            this._setCMSValue('#title-section h1', 'home', 'section-intro-comparateur-title');
+            this._setCMSValue('#title-section p', 'home', 'section-intro-comparateur-subtitle');
 
             // Hide solutions when showing comparateur and show the static 'A venir' block
-            $("#section-intro-solutions").hide();
             $("#section-solutions").hide();
-            $("#section-intro-comparateur").fadeIn();
             // inject comparateur UI into the comparateur block
             var ui = this._buildComparateurUI();
-            $('#bloc-comparateur').html('<h2>Comparateur.</h2>' + ui);
+            $('#bloc-comparateur').html('<h2>Comparateur</h2>' + ui);
             $("#section-comparateur").fadeIn();
             this._attachComparateurHandlers();
         },
@@ -1500,6 +1508,10 @@ $(document).ready(function () {
             html += tableHtml;
             html += '</div>';
             html += '</div>';
+            html += '</div>';
+
+            html += '<div>';
+            html += '<p>Apprenez-en plus sur la méthode de comparaison sur notre <a href="https://blog.octo.com/choisir-une-plateforme-d\'api-management-en-2025--mon-guide-pour-s\'y-retrouver" target="_blank">blog</a>.</p>';
             html += '</div>';
 
             return html;

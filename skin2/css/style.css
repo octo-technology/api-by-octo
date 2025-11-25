@@ -194,6 +194,9 @@ blockquote {
     display: inline;
 }
 
+main {
+    min-height: 100vh;
+}
 
 #home-bg-container {
     position: absolute;
@@ -451,10 +454,37 @@ header .navbar-brand img {
     width: 34px;
 }
 
+/* Cacher le toggler par defaut */
+header .navbar-toggler {
+    display: none;
+}
+
+/* Quand on scroll, elle a un fond blanc */
+header.in-view {
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#button-brand,
+#mobile-brand-name {
+    display: none;
+}
+
+#mobile-brand-name {
+    padding-top: 12px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
 /* ============================================
    DESKTOP 
    ============================================ */
 @media (min-width: 1200px) {
+
+    #mobile-brand-name {
+        /* avoid being displayed on desktop on scroll */
+        display: none !important;
+    }
 
     /* Sur desktop, la navbar est visible avec fond transparent */
     header {
@@ -463,11 +493,6 @@ header .navbar-brand img {
         background-color: transparent;
     }
 
-    /* Quand on scroll, elle a un fond blanc */
-    header.in-view {
-        background-color: #fff;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
 
     /* Liens blancs par défaut sur fond transparent */
     header .nav-link {
@@ -481,18 +506,13 @@ header .navbar-brand img {
 
     /* Liens foncés quand la navbar a un fond blanc */
     header.in-view .nav-link {
-        color: #0E2356;
+        color: #0E2356 !important;
     }
 
     header.in-view .nav-link:before {
-        background: #0E2356;
+        background: #0E2356 !important;
     }
 
-    /* Cacher le logo mini et le toggler sur desktop */
-    header .navbar-brand,
-    header .navbar-toggler {
-        display: none;
-    }
 
     /* Navbar toujours expanded sur desktop */
     header .navbar-collapse {
@@ -501,29 +521,29 @@ header .navbar-brand img {
     }
 
     /* Padding de la navbar */
-    header .navbar {
+    header:not(.in-view) .navbar {
         padding: 70px 0px;
         padding-left: 250px;
     }
 
     main {
-        padding-top: 300px;
+        padding-top: 210px;
         background-color: #FFF;
     }
 
-    .navbar-dark .navbar-nav .nav-link,
-    .navbar-light .navbar-nav .nav-link {
+    header:not(.in-view) .navbar-dark .navbar-nav .nav-link,
+    header:not(.in-view) .navbar-light .navbar-nav .nav-link {
         color: white;
     }
 
-    .navbar-light .navbar-nav .nav-link:hover {
+    header:not(.in-view) .navbar-light .navbar-nav .nav-link:hover {
         color: white;
     }
 
-    .navbar-light .navbar-nav .active>.nav-link,
-    .navbar-light .navbar-nav .nav-link.active,
-    .navbar-light .navbar-nav .nav-link.show,
-    .navbar-light .navbar-nav .show>.nav-link {
+    header:not(.in-view) .navbar-light .navbar-nav .active>.nav-link,
+    header:not(.in-view) .navbar-light .navbar-nav .nav-link.active,
+    header:not(.in-view) .navbar-light .navbar-nav .nav-link.show,
+    header:not(.in-view) .navbar-light .navbar-nav .show>.nav-link {
         color: white;
     }
 
@@ -538,10 +558,26 @@ header .navbar-brand img {
     h1 {
         font-weight: 900;
         color: #fff;
-        line-height: 85px;
+        line-height: 1.2em;
         font-size: 100px;
     }
 
+    .subtitle {
+        color: #fff;
+        font-size: 24px;
+        line-height: 1.5em;
+        margin-top: 48px;
+    }
+
+    .compare-header img {
+        max-height: 42px;
+        width: auto;
+    }
+
+    #bloc-comparateur .val-left,
+    #bloc-comparateur .val-right {
+        font-size: 22px;
+    }
 }
 
 /* ============================================
@@ -577,10 +613,10 @@ header .navbar-brand img {
 
     /* Menu collapse avec fond blanc */
     header .navbar-collapse {
-        margin-top: 50px;
+        margin-top: 42px;
         padding: 18px;
         position: absolute;
-        right: 32px;
+        right: 9px;
         top: 10px;
         /* Navbar collapse background */
         background: #0E2356;
@@ -599,7 +635,7 @@ header .navbar-brand img {
     }
 
     main {
-        padding-top: 80px;
+        padding-top: 100px;
         background-color: #FFF;
     }
 
@@ -607,12 +643,21 @@ header .navbar-brand img {
         display: block;
     }
 
+
     header .navbar-toggler {
         display: block;
         position: absolute;
-        right: 32px;
-        top: 16px;
+        right: 8px;
+        top: 12px;
         background: #0E2356;
+        height: 32px;
+        width: 32px;
+        padding-left: 6px;
+    }
+
+    .navbar-toggler .navbar-toggler-icon {
+        height: 18px;
+        width: 18px;
     }
 
     /* TODO: how to display it ? */
@@ -628,12 +673,66 @@ header .navbar-brand img {
     h1 {
         font-weight: 900;
         color: #fff;
+        line-height: 85px;
+        font-size: 80px;
+    }
+
+    .subtitle {
+        color: #fff;
+        font-size: 24px;
+        line-height: 1.5em;
+    }
+
+    #button-brand {
+        margin-left: 8px;
+    }
+
+    #main-navbar {
+        padding: 8px 2px;
+    }
+
+    .comparateur-table-inner {
+        padding: 16px;
+    }
+
+    .compare-header img {
+        max-height: 42px;
+        width: auto;
+    }
+
+
+    #bloc-comparateur .val-left,
+    #bloc-comparateur .val-right {
+        font-size: 22px;
+    }
+}
+
+
+@media (max-width: 767px) {
+    h1 {
+        font-weight: 900;
+        color: #fff;
         line-height: 45px;
         font-size: 40px;
     }
 
-}
+    .subtitle {
+        color: #fff;
+        font-size: 22px;
+        line-height: 1.5em;
+    }
 
+    .compare-header img {
+        max-height: 32px;
+        width: auto;
+    }
+
+
+    #bloc-comparateur .val-left,
+    #bloc-comparateur .val-right {
+        font-size: 14px;
+    }
+}
 
 .row {
     margin-bottom: 25px;
@@ -685,9 +784,12 @@ section {
     text-align: left;
 }
 
-.start-quizz-bloc {
+.start-quizz-bloc,
+.solutions-bloc,
+.comparateur-bloc {
     opacity: 1;
     border: none;
+    position: relative;
 }
 
 .start-quizz-bloc:hover {
@@ -695,10 +797,22 @@ section {
     cursor: pointer;
 }
 
+.bloc .shadow {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: white;
+    opacity: 0.2;
+    display: block;
+    border-radius: 16px;
+}
+
 #section-intro .bloc h2,
 #section-quizz .bloc h2,
 #section-solutions .bloc h2 {
-    font-size: 24px;
+    font-size: 18px;
     letter-spacing: 0.1em;
     font-weight: bold;
     text-transform: uppercase;
@@ -800,13 +914,6 @@ section {
     display: none;
 }
 
-#section-intro-comparateur p {
-    font-weight: 500;
-    color: #fff;
-    font-size: 18px;
-    line-height: 1.5em;
-}
-
 #bloc-comparateur {
     width: 100%;
 }
@@ -824,7 +931,7 @@ section {
     background: rgba(255, 255, 255, 0.9);
     border-radius: 16px;
     padding: 20px;
-    box-shadow: 0 12px 32px rgba(14, 35, 86, 0.08);
+    /* box-shadow: 0 12px 32px rgba(14, 35, 86, 0.08); */
     min-height: 150px;
 }
 
@@ -853,8 +960,6 @@ section {
 }
 
 .comparateur-table-wrapper {
-    border: 2px solid #d7dbe8;
-    border-radius: 22px;
     padding: 0;
     background: #fff;
     overflow: hidden;
@@ -902,29 +1007,12 @@ section {
     min-height: 60px;
 }
 
-.compare-header img {
-    max-height: 42px;
-    width: auto;
-}
-
-#bloc-comparateur .val-left,
-#bloc-comparateur .val-right {
-    font-size: 22px;
-}
-
 #bloc-comparateur .icon-star-full {
     color: #f2c94c;
 }
 
 #bloc-comparateur .icon-star-empty {
     color: #d7dbe8;
-}
-
-#section-intro-solutions p {
-    font-weight: 500;
-    color: #fff;
-    font-size: 18px;
-    line-height: 1.5em;
 }
 
 #section-solutions {
