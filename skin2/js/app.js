@@ -82,7 +82,7 @@ let conf_cms = {
         "bloc-solutions-subtitle-FR": "Consulter le benchmark",
         "bloc-solutions-button-knowmore-EN": "For more information",
         "bloc-solutions-button-knowmore-FR": "En savoir plus",
-        "section-quizz-title-FR": "Solutions identifiées.",
+        "section-quizz-title-FR": "Solution identifiées.",
         "section-quizz-title-EN": "Corresponding solutions.",
         "section-quizz-return-button-EN": "Back",
         "section-quizz-return-button-FR": "Étape précédente",
@@ -1346,7 +1346,7 @@ $(document).ready(function () {
             html += '<div class="bloc">';
 
             html += '<form id="form-' + quizzID + '" class="needs-validation">';
-            html += '<h1 class="mb-3">' + question["question-" + self.lang] + '</h1>';
+            html += '<h2 class="mb-3">' + question["question-" + self.lang] + '</h2>';
             for (var i = 0; i < question.answers.length; i++) {
                 var answer = question.answers[i];
                 var id = 'ID' + answer.goto + '';
