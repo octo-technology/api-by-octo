@@ -480,6 +480,10 @@ header.in-view {
    DESKTOP 
    ============================================ */
 @media (min-width: 1200px) {
+    #section-comparateur {
+        padding: 40px 40px 1000px 40px;
+    }
+
 
     #mobile-brand-name {
         /* avoid being displayed on desktop on scroll */
@@ -585,12 +589,20 @@ header.in-view {
    ============================================ */
 @media (max-width: 1199px) {
 
+    #section-comparateur {
+        padding: 8px 8px 40px 8px;
+    }
+
     /* Sur mobile, la navbar est toujours visible */
     header {
         transform: translateY(0);
         opacity: 1;
         /* background-color: #fff; */
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-dark .navbar-nav .nav-link {
+        color: white;
     }
 
     header .nav-link:before {
@@ -687,7 +699,7 @@ header.in-view {
         margin-left: 8px;
     }
 
-    #main-navbar {
+    .in-view #main-navbar {
         padding: 8px 2px;
     }
 
@@ -918,11 +930,6 @@ section {
     width: 100%;
 }
 
-#section-comparateur {
-    padding: 40px 0 1000px 0;
-    position: relative;
-}
-
 .comparateur-select-row {
     align-items: stretch;
 }
@@ -1015,7 +1022,8 @@ section {
     color: #d7dbe8;
 }
 
-#section-solutions {
+#section-solutions,
+#section-comparateur {
     background-color: #FFF;
     position: relative;
 }
@@ -1082,7 +1090,7 @@ section {
 }
 
 #section-solutions p {
-    margin-bottom: 40px;
+    margin-bottom: 32px;
 }
 
 #section-solutions .bloc-edito ul,
