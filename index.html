@@ -76,46 +76,65 @@
     <header>
         <img id="logo-octo" src="./skin2/img/logo-octo-white.svg" alt="OCTO logo" />
         <nav id="main-navbar" class="navbar navbar-expand-xl navbar-dark">
-            <div class="container">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"
-                    aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarContent">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="button-quizz nav-item">
-                            <a class="nav-link" href="#">Quizz</a>
-                        </li>
-                        <li class="button-solutions nav-item">
-                            <a class="nav-link" href="#">Benchmark</a>
-                        </li>
-                        <li class="button-comparateur nav-item">
-                            <a class="nav-link" href="#">Comparateur</a>
-                        </li>
-                        <li class="button-download nav-item">
-                            <a class="nav-link"
-                                href="https://www.octo.com/publications/refcard-api-management-essentials/"
-                                target="_blank">Télécharger la Refcard <span class='icon icon-video-play'></a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav my-2 my-md-0">
-                        <li class="button-lang-fr nav-item active">
-                            <a class="nav-link" href="#">Fr</a>
-                        </li>
-                        <li class="button-lang-en nav-item">
-                            <a class="nav-link" href="#">En</a>
-                        </li>
-                    </ul>
-                </div>
+            <div class="d-flex">
+                <a id="button-brand" class="navbar-brand" href="#">
+                    <img src="./skin2/img/logo-mini-color.svg" alt="O" class="logo-alt">
+                </a>
+                <span id="mobile-brand-name">Octo Technology</span>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="button-quizz nav-item">
+                        <a class="nav-link" href="#">Quizz</a>
+                    </li>
+                    <li class="button-solutions nav-item">
+                        <a class="nav-link" href="#">Benchmark</a>
+                    </li>
+                    <li class="button-comparateur nav-item">
+                        <a class="nav-link" href="#">Comparateur</a>
+                    </li>
+                    <li class="button-download nav-item">
+                        <a class="nav-link" href="https://www.octo.com/publications/refcard-api-management-essentials/"
+                            target="_blank">Télécharger la Refcard <span class='icon icon-video-play'></a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav my-2 my-md-0">
+                    <li class="button-lang-fr nav-item active">
+                        <a class="nav-link" href="#">Fr</a>
+                    </li>
+                    <li class="button-lang-en nav-item">
+                        <a class="nav-link" href="#">En</a>
+                    </li>
+                </ul>
             </div>
         </nav>
     </header>
 
     <main>
+        <section class="container" id="title-section">
+            <div class="row">
+                <div class="col-xl-8">
+                    <h1>OCTO et l'API Management.</h1>
+                </div>
+                <div class="col-xl-4">
+                    <p class="subtitle">Si OCTO a acquis au fil des ans un positionnement de leader d’opinion, c’est
+                        grâce à une
+                        politique éditoriale qui privilégie des contenus utiles, écrits par nos experts et mis en valeur
+                        par la créativité de nos équipes artistiques.</p>
+                </div>
+            </div>
+        </section>
+
+
         <section class="container" id="section-intro">
             <div class="row">
                 <div class="col-md-6">
                     <div class="bloc start-quizz-bloc">
+                        <div class="shadow"></div>
                         <div class="">
                             <h2 class="">WHICH API MANAGEMENT SOLUTION<br /> COULD<br /> HELP ME?</h2>
                             <h3 class="">START THE QUIZZ!</h3>
@@ -126,6 +145,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="bloc solutions-bloc">
+                        <div class="shadow"></div>
                         <div class="">
                             <h2 class="">API MANAGEMENT SOLUTIONS OVERVIEW</h2>
                             <h3 class="">See the benchmark!</h3>
@@ -136,6 +156,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="bloc comparateur-bloc">
+                        <div class="shadow"></div>
                         <div class="">
                             <h2 class="">API MANAGEMENT SOLUTIONS</h2>
                             <h3 class="">Compare the solutions!</h3>
@@ -145,6 +166,7 @@
             </div>
         </section>
 
+
         <section class="container" id="section-quizz">
             <div class="row">
                 <div class="col-md-12">
@@ -152,19 +174,6 @@
                         <div class="card-body quizz">
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="container" id="section-intro-solutions">
-            <div class="row">
-                <div class="col-lg-8">
-                    <h1>OCTO et l'API Management.</h1>
-                </div>
-                <div class="col-lg-4">
-                    <p>Si OCTO a acquis au fil des ans un positionnement de leader d’opinion, c’est grâce à une
-                        politique éditoriale qui privilégie des contenus utiles, écrits par nos experts et mis en valeur
-                        par la créativité de nos équipes artistiques.</p>
                 </div>
             </div>
         </section>
@@ -738,25 +747,11 @@
             </div>
         </section>
 
-        <!-- Comparateur (duplicate of solutions for now) -->
-        <section class="container" id="section-intro-comparateur">
-            <div class="row">
-                <div class="col-lg-8">
-                    <h1>OCTO et l'API Management.</h1>
-                </div>
-                <div class="col-lg-4">
-                    <p>Si OCTO a acquis au fil des ans un positionnement de leader d’opinion, c’est grâce à une
-                        politique éditoriale qui privilégie des contenus utiles, écrits par nos experts et mis en valeur
-                        par la créativité de nos équipes artistiques.</p>
-                </div>
-            </div>
-        </section>
-
         <section class="container" id="section-comparateur">
             <div class="row">
                 <div class="col-md-12">
                     <div class="bloc-edito" id="bloc-comparateur">
-                        <h2>Comparateur.</h2>
+                        <h2>Comparateur</h2>
                     </div>
                 </div>
             </div>
