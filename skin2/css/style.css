@@ -808,12 +808,18 @@ section {
     text-align: left;
 }
 
+.ressources-bloc,
 .start-quizz-bloc,
 .solutions-bloc,
 .comparateur-bloc {
     opacity: 1;
     border: none;
     position: relative;
+}
+
+.ressources-bloc:hover {
+    opacity: 0.8;
+    cursor: pointer;
 }
 
 .start-quizz-bloc:hover {
@@ -1122,6 +1128,10 @@ section {
 
 #section-solutions .bloc-edito .bloc-cons {
     display: none;
+}
+
+#section-ressources .bloc-edito li {
+    font-size: 1.2em;
 }
 
 .footer {
