@@ -58,6 +58,8 @@ let conf_apims_notes = {
 
 let conf_cms = {
     "home": {
+        "header-menu-ressources-EN": "Resources",
+        "header-menu-ressources-FR": "Ressources",
         "header-menu-quizz-EN": "Quizz",
         "header-menu-quizz-FR": "Quizz",
         "header-menu-solutions-EN": "Solutions",
@@ -68,6 +70,10 @@ let conf_cms = {
         "header-menu-publications-FR": "Publications <span class='icon icon-video-play'>",
         "header-menu-download-EN": "Download Refcard <span class='icon icon-video-play'>",
         "header-menu-download-FR": "Télécharger la Refcard <span class='icon icon-video-play'>",
+        "bloc-ressources-title-EN": "ALL OUR PUBLICATIONS<br/> ABOUT API",
+        "bloc-ressources-title-FR": "TOUTES NOS PUBLICATIONS<br/> AUTOUR DES API",
+        "bloc-ressources-subtitle-EN": "Discover our resources!",
+        "bloc-ressources-subtitle-FR": "Découvrir nos ressources !",
         "bloc-quizz-title-EN": "WHICH API MANAGEMENT<br/> SOLUTION CAN HELP ME?",
         "bloc-quizz-subtitle-EN": "Start the quizz!",
         "bloc-quizz-title-FR": "QUELLE SOLUTION D'API MANAGEMENT PEUT M'AIDER ?",
@@ -89,7 +95,11 @@ let conf_cms = {
         "section-intro-solutions-title-EN": "OCTO and <br />API Management <br />solutions",
         "section-intro-solutions-title-FR": "OCTO et <br />l'API Management",
         "section-intro-solutions-subtitle-EN": "Over the years OCTO has acquired the role of opinion leader on API subjects, thanks to experience gathered by consultant teams on the field, when designing and bulding APIs.",
-        "section-intro-solutions-subtitle-FR": "Si OCTO a développé au fil des ans un positionnement de leader d’opinion, c’est grâce à l'expérience de nos consultants aquise sur le terrain, avec nos clients, lors de la mise en oeuvre d'API.",
+        "section-intro-solutions-subtitle-FR": "Si OCTO a développé au fil des ans un positionnement de leader d'opinion, c'est grâce à l'expérience de nos consultants aquise sur le terrain, avec nos clients, lors de la mise en oeuvre d'API.",
+        "section-intro-ressources-title-EN": "Our resources <br />about API",
+        "section-intro-ressources-title-FR": "Nos ressources <br />autour des API",
+        "section-intro-ressources-subtitle-EN": "Over the years OCTO has gained a position as an opinion leader, thanks to an editorial policy that favors useful content, written by our experts and highlighted by the creativity of our artistic teams.",
+        "section-intro-ressources-subtitle-FR": "Si OCTO a acquis au fil des ans un positionnement de leader d'opinion, c'est grâce à une politique éditoriale qui privilégie des contenus utiles, écrits par nos experts et mis en valeur par la créativité de nos équipes artistiques.",
         "section-intro-comparateur-title-EN": "The API Management<br />solutions comparator",
         "section-intro-comparateur-title-FR": "Comparateur de solutions d'API Management",
         "section-intro-comparateur-subtitle-EN": "Compare APIM solutions on key features and quickly spot their strengths and weaknesses.",
@@ -102,6 +112,30 @@ let conf_cms = {
         "footer-button-blog-FR": "Blog",
         "footer-button-contact-EN": "Contact",
         "footer-button-contact-FR": "Contact",
+        "ressources-refcards-title-EN": "Our Refcards",
+        "ressources-refcards-title-FR": "Nos Refcards",
+        "ressources-refcards-subtitle-EN": "Download our Refcards to master the essentials of APIs.",
+        "ressources-refcards-subtitle-FR": "Téléchargez nos Refcards pour maîtriser les essentiels des API.",
+        "ressources-restful-title-EN": "RESTful API Design",
+        "ressources-restful-title-FR": "RESTful API Design",
+        "ressources-restful-desc-EN": "Essential principles for designing quality REST APIs.",
+        "ressources-restful-desc-FR": "Les principes essentiels pour concevoir des API REST de qualité.",
+        "ressources-security-title-EN": "API Security Principles",
+        "ressources-security-title-FR": "API Security Principles",
+        "ressources-security-desc-EN": "Fundamental security principles to protect your APIs.",
+        "ressources-security-desc-FR": "Les principes de sécurité fondamentaux pour protéger vos API.",
+        "ressources-management-title-EN": "API Management Essentials",
+        "ressources-management-title-FR": "API Management Essentials",
+        "ressources-management-desc-EN": "API Management essentials to get started.",
+        "ressources-management-desc-FR": "Les essentiels de l'API Management pour bien démarrer.",
+        "ressources-architecture-title-EN": "API Architecture Strategy",
+        "ressources-architecture-title-FR": "API Architecture Strategy",
+        "ressources-architecture-desc-EN": "Define and implement an API architecture strategy.",
+        "ressources-architecture-desc-FR": "Définir et mettre en œuvre une stratégie d'architecture API.",
+        "ressources-blog-title-EN": "Blog posts & resources",
+        "ressources-blog-title-FR": "Articles de blog & ressources",
+        "ressources-download-btn-EN": "Download",
+        "ressources-download-btn-FR": "Télécharger",
         "background-image": "./skin2/img/Refcard_API_Management.jpg",
         "background-image-mobile": "./skin2/img/Refcard_API_Management_jaune_siteAPI-mobile.jpg"
     },
@@ -713,11 +747,15 @@ $(document).ready(function () {
                 case "NAVCOMPARATEUR":
                     this.displayComparateur();
                     break;
+                case "NAVRESSOURCES":
+                    this.displayRessources();
+                    break;
             }
         },
         displayHome: function () {
             $("header:first-of-type").hide();
             $("footer:first-of-type").hide();
+            this._setCMSValue('.button-ressources a', 'home', 'header-menu-ressources');
             this._setCMSValue('.button-quizz a', 'home', 'header-menu-quizz');
             this._setCMSValue('.button-solutions a', 'home', 'header-menu-solutions');
             this._setCMSValue('.button-comparateur a', 'home', 'header-menu-comparateur');
@@ -733,7 +771,10 @@ $(document).ready(function () {
         },
         displayIntro: function () {
             $('#title-section').hide();
+            this._setCMSValue('.button-ressources a', 'home', 'header-menu-ressources');
             this._setCMSValue('.button-quizz a', 'home', 'header-menu-quizz');
+            this._setCMSValue('.ressources-bloc h2', 'home', 'bloc-ressources-title');
+            this._setCMSValue('.ressources-bloc h3', 'home', 'bloc-ressources-subtitle');
             this._setCMSValue('.start-quizz-bloc h2', 'home', 'bloc-quizz-title');
             this._setCMSValue('.start-quizz-bloc h3', 'home', 'bloc-quizz-subtitle');
             this._setCMSValue('.solutions-bloc h2', 'home', 'bloc-solutions-title');
@@ -748,6 +789,7 @@ $(document).ready(function () {
             $("#section-quizz").hide();
             $("#section-solutions").hide();
             $("#section-comparateur").hide();
+            $("#section-ressources").hide();
             $('.button-comparateur').removeClass('active');
 
 
@@ -772,6 +814,7 @@ $(document).ready(function () {
             // Masquer systématiquement le comparateur dès qu'on affiche le quizz
             $('#section-intro-comparateur').hide();
             $('#section-comparateur').hide();
+            $('#section-ressources').hide();
             $('.button-comparateur').removeClass('active');
 
             this.quizzId = id;
@@ -837,12 +880,23 @@ $(document).ready(function () {
                 $(".scroll-to-link").hide();
             });
 
+            $(".button-ressources").click(function (e) {
+                e.preventDefault();
+                window.location.hash = 'display=NAVRESSOURCES' + self.lang;
+                app.displayRessources();
+                $(".button-quizz").removeClass("active");
+                $(".button-solutions").removeClass("active");
+                $(".button-comparateur").removeClass("active");
+                $(".button-ressources").addClass("active");
+            });
+
             $(".button-quizz").click(function (e) {
                 e.preventDefault();
                 self.history.unshift(['NAVINTRO']);
                 window.location.hash = 'display=NAVQUIZZ' + self.lang;
                 app.displayQuizz();
                 $(".button-solutions").removeClass("active");
+                $(".button-ressources").removeClass("active");
                 $(".button-quizz").addClass("active");
                 $(".scroll-to-link").hide();
             });
@@ -852,6 +906,7 @@ $(document).ready(function () {
                 window.location.hash = 'display=NAVBENCHMARK' + self.lang;
                 app.displayAllSolutions();
                 $(".button-quizz").removeClass("active");
+                $(".button-ressources").removeClass("active");
                 $(".button-solutions").addClass("active");
             });
 
@@ -862,6 +917,7 @@ $(document).ready(function () {
                 app.displayComparateur();
                 $(".button-quizz").removeClass("active");
                 $(".button-solutions").removeClass("active");
+                $(".button-ressources").removeClass("active");
                 $(".button-comparateur").addClass("active");
             });
 
@@ -895,16 +951,26 @@ $(document).ready(function () {
                 }, 200);
             });
 
+            $(".ressources-bloc").click(function () {
+                app.displayRessources();
+                $(".button-quizz").removeClass("active");
+                $(".button-solutions").removeClass("active");
+                $('.button-comparateur').removeClass('active');
+                $(".button-ressources").addClass("active");
+            });
+
             $(".start-quizz-bloc").click(function () {
                 self.history.unshift(['NAVINTRO']);
                 self.displayQuizz();
                 $(".button-solutions").removeClass("active");
+                $(".button-ressources").removeClass("active");
                 $(".button-quizz").addClass("active");
             });
 
             $(".solutions-bloc").click(function () {
                 app.displayAllSolutions();
                 $(".button-quizz").removeClass("active");
+                $(".button-ressources").removeClass("active");
                 $('.button-comparateur').removeClass('active');
                 $(".button-solutions").addClass("active");
             });
@@ -912,6 +978,7 @@ $(document).ready(function () {
             $(".comparateur-bloc").click(function () {
                 app.displayComparateur();
                 $(".button-quizz").removeClass("active");
+                $(".button-ressources").removeClass("active");
                 $('.button-comparateur').addClass('active');
                 $(".button-solutions").removeClass("active");
             });
@@ -937,6 +1004,26 @@ $(document).ready(function () {
             var displayParam = self._parameter(window.location, 'display');
             if (displayParam != "") {
                 switch (displayParam) {
+                    case 'NAVRESSOURCESFR':
+                        self.currentNav = 'NAVRESSOURCES';
+                        $(".button-quizz").removeClass("active");
+                        $(".button-solutions").removeClass("active");
+                        $(".button-comparateur").removeClass("active");
+                        $(".button-ressources").addClass("active");
+                        self.lang = "FR";
+                        $(".button-lang-en").removeClass("active");
+                        $(".button-lang-fr").addClass("active");
+                        break;
+                    case 'NAVRESSOURCESEN':
+                        self.currentNav = 'NAVRESSOURCES';
+                        $(".button-quizz").removeClass("active");
+                        $(".button-solutions").removeClass("active");
+                        $(".button-comparateur").removeClass("active");
+                        $(".button-ressources").addClass("active");
+                        self.lang = "EN";
+                        $(".button-lang-en").addClass("active");
+                        $(".button-lang-fr").removeClass("active");
+                        break;
                     case 'NAVQUIZZFR':
                         self.currentNav = 'NAVQUIZZ';
                         $(".button-solutions").removeClass("active");
@@ -1037,8 +1124,9 @@ $(document).ready(function () {
                 "TYK",
                 "WSO2"
             ]);
-            // ensure comparateur is hidden when displaying solutions
+            // ensure comparateur and ressources are hidden when displaying solutions
             $("#section-comparateur").hide();
+            $("#section-ressources").hide();
             $("#section-solutions").fadeIn();
         },
 
@@ -1054,11 +1142,53 @@ $(document).ready(function () {
 
             // Hide solutions when showing comparateur and show the static 'A venir' block
             $("#section-solutions").hide();
+            $("#section-ressources").hide();
             // inject comparateur UI into the comparateur block
             var ui = this._buildComparateurUI();
             $('#bloc-comparateur').html('<h2>Comparateur</h2>' + ui);
             $("#section-comparateur").fadeIn();
             this._attachComparateurHandlers();
+        },
+
+        displayRessources: function () {
+            this.currentNav = 'NAVRESSOURCES';
+            $('#title-section').show();
+            $("#section-intro").hide();
+            $("#section-quizz").hide();
+            $("#section-solutions").hide();
+            $("#section-comparateur").hide();
+            $("#home-bg").addClass("transparent");
+            $("#home-bg-open").addClass("transparent");
+            $("#home-bg-solutions").removeClass("transparent");
+            this._setCMSValue('#title-section h1', 'home', 'section-intro-ressources-title');
+            this._setCMSValue('#title-section p', 'home', 'section-intro-ressources-subtitle');
+            
+            // Update resources content with translations
+            $('#section-ressources .bloc-edito:first h2').html(this._getCMSValue('home', 'ressources-refcards-title'));
+            $('#section-ressources .bloc-edito:first p').html(this._getCMSValue('home', 'ressources-refcards-subtitle'));
+            
+            // Update refcards titles, descriptions and buttons
+            var refcards = $('#ressources-refcards .bloc-edito');
+            $(refcards[0]).find('h3').html(this._getCMSValue('home', 'ressources-restful-title'));
+            $(refcards[0]).find('p').html(this._getCMSValue('home', 'ressources-restful-desc'));
+            $(refcards[0]).find('a').html(this._getCMSValue('home', 'ressources-download-btn'));
+            
+            $(refcards[1]).find('h3').html(this._getCMSValue('home', 'ressources-security-title'));
+            $(refcards[1]).find('p').html(this._getCMSValue('home', 'ressources-security-desc'));
+            $(refcards[1]).find('a').html(this._getCMSValue('home', 'ressources-download-btn'));
+            
+            $(refcards[2]).find('h3').html(this._getCMSValue('home', 'ressources-management-title'));
+            $(refcards[2]).find('p').html(this._getCMSValue('home', 'ressources-management-desc'));
+            $(refcards[2]).find('a').html(this._getCMSValue('home', 'ressources-download-btn'));
+            
+            $(refcards[3]).find('h3').html(this._getCMSValue('home', 'ressources-architecture-title'));
+            $(refcards[3]).find('p').html(this._getCMSValue('home', 'ressources-architecture-desc'));
+            $(refcards[3]).find('a').html(this._getCMSValue('home', 'ressources-download-btn'));
+            
+            // Update blog section title
+            $('#section-ressources .row:eq(2) .bloc-edito h2').html(this._getCMSValue('home', 'ressources-blog-title'));
+            
+            $("#section-ressources").fadeIn();
         },
 
         _renderStars: function (n) {
