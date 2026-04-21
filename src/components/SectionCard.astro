@@ -1,0 +1,28 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  href: string;
+}
+
+const { title, description, href } = Astro.props;
+---
+
+<a class="section-card card" href={href}>
+  <h3>{title}</h3>
+  <p class="section-card-description">{description}</p>
+</a>
+
+<style>
+  .section-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .section-card-description {
+    color: var(--octo-grey);
+    margin-top: var(--space-sm);
+    line-height: 1.6;
+  }
+</style>

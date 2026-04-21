@@ -1,0 +1,223 @@
+---
+import RatingBar from './RatingBar.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+interface Props {
+  name: string;
+  slug: string;
+  vendor: string;
+  year: number;
+  openSource: boolean;
+  deploymentModes: string[];
+  description: string;
+  ratings: Record<string, number>;
+  pros: string[];
+  cons: string[];
+}
+
+const { name, slug, vendor, year, openSource, deploymentModes, description, ratings, pros, cons } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const ratingKeys = [
+  'timeToMarket',
+  'communaute',
+  'cout',
+  'flexibilite',
+  'securite',
+  'onPremise',
+  'saas',
+  'documentation',
+] as const;
+
+const hasProsOrCons = (pros && pros.length > 0) || (cons && cons.length > 0);
+---
+
+<details class="accordion" id={slug}>
+  <summary class="accordion-summary">
+    <div class="accordion-header">
+      <h3 class="accordion-name">{name}</h3>
+      <span class="accordion-vendor">{vendor} &middot; {year}</span>
+      <div class="accordion-badges">
+        {openSource && <span class="badge badge-cyan">Open Source</span>}
+        {deploymentModes.map((mode) => (
+          <span class="badge badge-navy">{mode}</span>
+        ))}
+      </div>
+    </div>
+    <svg class="accordion-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </summary>
+
+  <div class="accordion-body">
+    {description && <p class="accordion-description">{description}</p>}
+
+    {hasProsOrCons ? (
+      <div class="accordion-proscons">
+        {pros && pros.length > 0 && (
+          <div>
+            <p class="proscons-heading proscons-heading--pros">{t('benchmark.pros')}</p>
+            <ul class="solution-list solution-pros">
+              {pros.map((p) => <li>{p}</li>)}
+            </ul>
+          </div>
+        )}
+        {cons && cons.length > 0 && (
+          <div>
+            <p class="proscons-heading proscons-heading--cons">{t('benchmark.cons')}</p>
+            <ul class="solution-list solution-cons">
+              {cons.map((c) => <li>{c}</li>)}
+            </ul>
+          </div>
+        )}
+      </div>
+    ) : (
+      <p class="accordion-coming-soon">{t('benchmark.comingSoon')}</p>
+    )}
+
+    <div class="accordion-ratings">
+      <p class="accordion-ratings-title">{t('benchmark.ratings')}</p>
+      {ratingKeys.map((key) => (
+        <RatingBar label={t(`rating.${key}`)} value={ratings[key] ?? 0} />
+      ))}
+    </div>
+  </div>
+</details>
+
+<style>
+  .accordion {
+    background-color: var(--octo-grey-light);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-md);
+    overflow: hidden;
+  }
+
+  .accordion-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-lg);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .accordion-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .accordion-summary::marker {
+    display: none;
+    content: '';
+  }
+
+  .accordion-header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .accordion-name {
+    margin: 0;
+  }
+
+  .accordion-vendor {
+    font-size: 0.85rem;
+    color: var(--octo-grey);
+  }
+
+  .accordion-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  .accordion-chevron {
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+    color: var(--octo-main);
+  }
+
+  .accordion[open] > .accordion-summary .accordion-chevron {
+    transform: rotate(180deg);
+  }
+
+  .accordion-body {
+    padding: 0 var(--space-lg) var(--space-lg);
+  }
+
+  .accordion-description {
+    color: var(--octo-main);
+    line-height: 1.6;
+    margin-bottom: var(--space-lg);
+  }
+
+  .accordion-proscons {
+    margin-bottom: var(--space-lg);
+  }
+
+  .accordion-coming-soon {
+    color: var(--octo-grey);
+    font-style: italic;
+    margin-bottom: var(--space-lg);
+  }
+
+  .accordion-ratings-title {
+    font-weight: var(--font-bold);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--octo-main);
+    margin-bottom: var(--space-md);
+  }
+
+  .proscons-heading {
+    font-weight: var(--font-bold);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: var(--space-sm);
+  }
+
+  .proscons-heading--pros {
+    color: var(--octo-secondary);
+  }
+
+  .proscons-heading--cons {
+    color: var(--octo-red);
+    margin-top: var(--space-md);
+  }
+
+  .solution-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-sm) 0;
+  }
+
+  .solution-list li {
+    position: relative;
+    padding-left: 1.25rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--octo-main);
+  }
+
+  .solution-list li::before {
+    position: absolute;
+    left: 0;
+  }
+
+  .solution-pros li::before {
+    content: '+';
+    color: var(--octo-secondary);
+    font-weight: 700;
+  }
+
+  .solution-cons li::before {
+    content: '\2212';
+    color: var(--octo-red);
+    font-weight: 700;
+  }
+</style>

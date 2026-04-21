@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroHome from '../../components/HeroHome.astro';
+import FeaturedPublication from '../../components/FeaturedPublication.astro';
+import SectionCard from '../../components/SectionCard.astro';
+import { useTranslations } from '../../i18n/utils';
+const t = useTranslations('en');
+---
+<BaseLayout title="OCTO and API Management" description="Publications, benchmark, comparator and guide to choose your API Management solution.">
+  <HeroHome />
+  <FeaturedPublication />
+  <section class="section">
+    <div class="container">
+      <div class="card-grid home-grid">
+        <SectionCard title={t('section.publications.title')} description={t('section.publications.desc')} href="/en/publications" />
+        <SectionCard title={t('section.benchmark.title')} description={t('section.benchmark.desc')} href="/en/benchmark" />
+        <SectionCard title={t('section.links.title')} description={t('section.links.desc')} href="/en/links" />
+        <SectionCard title={t('section.guide.title')} description={t('section.guide.desc')} href="/en/guide" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+<style>
+  .home-grid { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 768px) { .home-grid { grid-template-columns: 1fr; } }
+</style>

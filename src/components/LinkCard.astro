@@ -1,0 +1,89 @@
+---
+interface Props {
+  title: string;
+  url: string;
+  source: string;
+  description?: string;
+  tags: string[];
+}
+
+const { title, url, source, description, tags } = Astro.props;
+---
+
+<article class="link-card card">
+  <div class="link-card-header">
+    <span class="link-card-source">{source}</span>
+    <svg class="link-card-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <line x1="7" y1="17" x2="17" y2="7" />
+      <polyline points="7 7 17 7 17 17" />
+    </svg>
+  </div>
+  <h3>
+    <a href={url} target="_blank" rel="noopener noreferrer" class="link-card-title">
+      {title}
+    </a>
+  </h3>
+  {description && <p class="link-card-description">{description}</p>}
+  <ul class="tag-list">
+    {tags.map((tag) => (
+      <li class="tag">{tag}</li>
+    ))}
+  </ul>
+</article>
+
+<style>
+  .link-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .link-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .link-card-source {
+    color: var(--octo-secondary);
+    font-size: 0.75rem;
+    font-weight: var(--font-semibold);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .link-card-arrow {
+    color: var(--octo-grey);
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  .link-card:hover .link-card-arrow {
+    transform: translate(2px, -2px);
+    color: var(--octo-secondary);
+  }
+
+  .link-card-title {
+    color: var(--octo-main);
+    text-decoration: none;
+    font-weight: var(--font-semibold);
+  }
+
+  .link-card-title::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  .link-card-description {
+    color: var(--octo-grey);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .tag-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+</style>

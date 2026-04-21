@@ -1,0 +1,286 @@
+---
+import { getCollection } from 'astro:content';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const allSolutions = await getCollection('solutions');
+const solutions = allSolutions
+  .filter((s) => s.data.lang === lang)
+  .sort((a, b) => a.data.name.localeCompare(b.data.name));
+
+const solutionData = solutions.map((s) => ({
+  slug: s.data.slug,
+  name: s.data.name,
+  vendor: s.data.vendor,
+  ratings: s.data.ratings,
+  pros: s.data.pros,
+  cons: s.data.cons,
+}));
+
+const ratingKeys = [
+  'timeToMarket',
+  'communaute',
+  'cout',
+  'flexibilite',
+  'securite',
+  'onPremise',
+  'saas',
+  'documentation',
+] as const;
+
+const ratingLabels: Record<string, string> = {};
+for (const key of ratingKeys) {
+  ratingLabels[key] = t(`rating.${key}`);
+}
+
+const prosLabel = t('benchmark.pros');
+const consLabel = t('benchmark.cons');
+---
+
+<div id="comparator">
+  <h2 class="heading-dot">{t('guide.comparator.title')}</h2>
+  <p class="comparator-desc">{t('guide.comparator.desc')}</p>
+
+  <div class="comparator-selects">
+    {[0, 1, 2].map((i) => (
+      <select class="comparator-select" data-index={i} aria-label={`${t('guide.comparator.select')} ${i + 1}`}>
+        <option value="">{t('guide.comparator.select')}</option>
+        {solutions.map((s) => (
+          <option value={s.data.slug}>{s.data.name} ({s.data.vendor})</option>
+        ))}
+      </select>
+    ))}
+  </div>
+
+  <div id="comparator-output"></div>
+
+  <script type="application/json" id="comparator-data">
+    {JSON.stringify({ solutions: solutionData, ratingLabels, prosLabel, consLabel })}
+  </script>
+</div>
+
+<script>
+  const dataEl = document.getElementById('comparator-data');
+  if (dataEl) {
+    const { solutions, ratingLabels, prosLabel, consLabel } = JSON.parse(dataEl.textContent || '{}');
+    const lookup: Record<string, typeof solutions[number]> = {};
+    for (const s of solutions) {
+      lookup[s.slug] = s;
+    }
+
+    const selects = document.querySelectorAll<HTMLSelectElement>('.comparator-select');
+    const output = document.getElementById('comparator-output')!;
+
+    function render() {
+      const slugs = Array.from(selects)
+        .map((sel) => sel.value)
+        .filter((v) => v !== '');
+
+      if (slugs.length < 2) {
+        output.innerHTML = '';
+        return;
+      }
+
+      const selected = slugs.map((slug) => lookup[slug]).filter(Boolean);
+
+      // Build ratings table
+      let tableHtml = '<div class="comparator-table-wrap"><table class="comparator-table">';
+      tableHtml += '<thead><tr><th></th>';
+      for (const s of selected) {
+        tableHtml += `<th>${s.name}</th>`;
+      }
+      tableHtml += '</tr></thead><tbody>';
+
+      for (const [key, label] of Object.entries(ratingLabels)) {
+        tableHtml += `<tr><td class="comparator-label">${label}</td>`;
+        for (const s of selected) {
+          const value = s.ratings[key] ?? 0;
+          const pct = (value / 5) * 100;
+          tableHtml += `<td>
+            <div class="rating-bar">
+              <div class="rating-bar-track">
+                <div class="rating-bar-fill" style="width:${pct}%"></div>
+              </div>
+              <span class="comparator-value">${value}/5</span>
+            </div>
+          </td>`;
+        }
+        tableHtml += '</tr>';
+      }
+      tableHtml += '</tbody></table></div>';
+
+      // Build pros/cons grid
+      let prosConsHtml = '<div class="comparator-proscons">';
+      for (const s of selected) {
+        prosConsHtml += `<div class="comparator-proscons-col">
+          <h3>${s.name}</h3>
+          <p class="proscons-heading proscons-heading--pros">${prosLabel}</p>
+          <ul class="solution-list solution-pros">
+            ${s.pros.map((p: string) => `<li>${p}</li>`).join('')}
+          </ul>
+          <p class="proscons-heading proscons-heading--cons">${consLabel}</p>
+          <ul class="solution-list solution-cons">
+            ${s.cons.map((c: string) => `<li>${c}</li>`).join('')}
+          </ul>
+        </div>`;
+      }
+      prosConsHtml += '</div>';
+
+      output.innerHTML = tableHtml + prosConsHtml;
+    }
+
+    selects.forEach((sel) => sel.addEventListener('change', render));
+  }
+</script>
+
+<style>
+  #comparator {
+    padding-block: var(--space-lg);
+  }
+
+  .comparator-desc {
+    color: var(--octo-grey);
+    margin-block: var(--space-sm) var(--space-lg);
+    line-height: 1.6;
+  }
+
+  .comparator-selects {
+    display: flex;
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+  }
+
+  .comparator-select {
+    flex: 1;
+    padding: 0.65rem 1rem;
+    border-radius: var(--radius-pill);
+    border: 2px solid var(--octo-grey-light);
+    font-family: var(--font-family);
+    font-size: 0.9rem;
+    color: var(--octo-main);
+    background-color: var(--octo-white);
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%238691aa' d='M1.41 0L6 4.58 10.59 0 12 1.41l-6 6-6-6z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+  }
+
+  .comparator-select:focus {
+    outline: none;
+    border-color: var(--octo-secondary);
+  }
+
+  /* Table styles need :global because they are rendered by client JS */
+  :global(.comparator-table-wrap) {
+    overflow-x: auto;
+    margin-bottom: var(--space-xl);
+  }
+
+  :global(.comparator-table) {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  :global(.comparator-table th),
+  :global(.comparator-table td) {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--octo-grey-light);
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  :global(.comparator-table thead th) {
+    font-size: 0.85rem;
+    font-weight: var(--font-bold);
+    color: var(--octo-main);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid var(--octo-main);
+  }
+
+  :global(.comparator-label) {
+    font-size: 0.85rem;
+    font-weight: var(--font-semibold);
+    color: var(--octo-main);
+    white-space: nowrap;
+    min-width: 8rem;
+  }
+
+  :global(.comparator-value) {
+    flex-shrink: 0;
+    font-size: 0.8rem;
+    font-weight: var(--font-semibold);
+    color: var(--octo-grey);
+    min-width: 2rem;
+    text-align: right;
+  }
+
+  :global(.comparator-proscons) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-lg);
+  }
+
+  :global(.comparator-proscons-col h3) {
+    margin-bottom: var(--space-md);
+  }
+
+  :global(.proscons-heading) {
+    font-weight: var(--font-bold);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: var(--space-sm);
+  }
+
+  :global(.proscons-heading--pros) {
+    color: var(--octo-secondary);
+  }
+
+  :global(.proscons-heading--cons) {
+    color: var(--octo-red);
+    margin-top: var(--space-md);
+  }
+
+  :global(.solution-list) {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-sm) 0;
+  }
+
+  :global(.solution-list li) {
+    position: relative;
+    padding-left: 1.25rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--octo-main);
+  }
+
+  :global(.solution-list li::before) {
+    position: absolute;
+    left: 0;
+  }
+
+  :global(.solution-pros li::before) {
+    content: '+';
+    color: var(--octo-secondary);
+    font-weight: 700;
+  }
+
+  :global(.solution-cons li::before) {
+    content: '\2212';
+    color: var(--octo-red);
+    font-weight: 700;
+  }
+
+  @media (max-width: 768px) {
+    .comparator-selects {
+      flex-direction: column;
+    }
+  }
+</style>

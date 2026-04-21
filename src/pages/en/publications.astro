@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PublicationCard from '../../components/PublicationCard.astro';
+import { getCollection } from 'astro:content';
+import { useTranslations } from '../../i18n/utils';
+
+const t = useTranslations('en');
+
+const allPublications = await getCollection('publications');
+const publications = allPublications
+  .filter((pub) => pub.data.lang === 'en')
+  .sort((a, b) => {
+    // refcards first, then articles
+    if (a.data.type !== b.data.type) {
+      return a.data.type === 'refcard' ? -1 : 1;
+    }
+    // then by date descending
+    return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+  });
+---
+
+<BaseLayout title={t('publications.title')}>
+  <section class="section">
+    <div class="container">
+      <h1 class="heading-dot">{t('publications.title')}</h1>
+      <div class="card-grid">
+        {publications.map((pub) => (
+          <PublicationCard
+            title={pub.data.title}
+            description={pub.data.description}
+            type={pub.data.type}
+            downloadUrl={pub.data.downloadUrl}
+            image={pub.data.image}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

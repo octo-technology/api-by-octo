@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Quiz from '../../components/Quiz.astro';
+import Comparator from '../../components/Comparator.astro';
+import { useTranslations } from '../../i18n/utils';
+const t = useTranslations('fr');
+---
+
+<BaseLayout title={t('guide.title')} description="Quiz et comparateur pour choisir votre solution d'API Management.">
+  <section class="section">
+    <div class="container">
+      <h1 class="heading-dot">{t('guide.title')}</h1>
+      <p class="guide-intro">{t('guide.intro')}</p>
+    </div>
+  </section>
+
+  <section class="section" style="background: var(--octo-grey-light);">
+    <div class="container">
+      <Quiz />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <Comparator />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .guide-intro {
+    color: var(--octo-grey);
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin-top: var(--space-lg);
+  }
+</style>

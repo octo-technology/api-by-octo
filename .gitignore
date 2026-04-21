@@ -1,6 +1,5 @@
+node_modules/
+dist/
+.astro/
 .DS_Store
-.idea
-.idea/*
-.idea/vcs.xml
-api-by-octo.iml
-benchmark.csv
+.superpowers/

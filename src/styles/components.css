@@ -1,0 +1,173 @@
+/* ============================================
+   OCTO Design System — Shared Component Styles
+   ============================================ */
+
+/* ----- Buttons ----- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: 0.75rem 1.75rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-family);
+  font-size: 0.85rem;
+  font-weight: var(--font-semibold);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease,
+    opacity 0.2s ease, transform 0.15s ease;
+  text-decoration: none;
+  line-height: 1;
+}
+
+.btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn-primary {
+  background-color: var(--octo-secondary);
+  color: var(--octo-main);
+  border-color: var(--octo-secondary);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--octo-white);
+  border-color: var(--octo-white);
+}
+
+.btn-outline:hover {
+  background-color: var(--octo-white);
+  color: var(--octo-main);
+}
+
+.btn-outline-dark {
+  background-color: transparent;
+  color: var(--octo-main);
+  border-color: var(--octo-main);
+}
+
+.btn-outline-dark:hover {
+  background-color: var(--octo-main);
+  color: var(--octo-white);
+}
+
+/* ----- Cards ----- */
+
+.card {
+  background-color: var(--octo-grey-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(14, 35, 86, 0.1);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-lg);
+}
+
+/* ----- Badges ----- */
+
+.badge {
+  display: inline-block;
+  padding: 0.3rem 0.85rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  font-weight: var(--font-semibold);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.badge-cyan {
+  background-color: var(--octo-secondary);
+  color: var(--octo-main);
+}
+
+.badge-navy {
+  background-color: var(--octo-main);
+  color: var(--octo-white);
+}
+
+/* ----- Tags ----- */
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  font-weight: var(--font-regular);
+  background-color: var(--octo-grey-light);
+  color: var(--octo-grey);
+  line-height: 1.4;
+}
+
+/* ----- Rating Bar (horizontal bar chart) ----- */
+
+.rating-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  width: 100%;
+}
+
+.rating-bar-label {
+  flex-shrink: 0;
+  min-width: 5rem;
+  font-size: 0.85rem;
+  font-weight: var(--font-semibold);
+  color: var(--octo-main);
+}
+
+.rating-bar-track {
+  flex: 1;
+  height: 8px;
+  background-color: var(--octo-grey-light);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.rating-bar-fill {
+  height: 100%;
+  background-color: var(--octo-secondary);
+  border-radius: var(--radius-pill);
+  transition: width 0.4s ease;
+}
+
+/* ----- Responsive ----- */
+
+@media (max-width: 768px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: var(--space-md);
+  }
+
+  .btn {
+    padding: 0.6rem 1.25rem;
+    font-size: 0.8rem;
+  }
+}

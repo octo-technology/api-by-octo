@@ -1,0 +1,54 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  type: 'refcard' | 'article';
+  downloadUrl: string;
+  image?: string;
+}
+
+const { title, description, type, downloadUrl, image } = Astro.props;
+
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const ctaLabel = type === 'refcard' ? t('publications.download') : t('publications.read');
+---
+
+<article class="publication-card card">
+  {image && (
+    <img class="publication-card-image" src={image} alt={title} loading="lazy" />
+  )}
+  <span class="badge badge-cyan">{type}</span>
+  <h3 class="publication-card-title">{title}</h3>
+  <p class="publication-card-description">{description}</p>
+  <a class="btn btn-primary" href={downloadUrl}>{ctaLabel}</a>
+</article>
+
+<style>
+  .publication-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .publication-card-image {
+    width: 100%;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+  }
+
+  .publication-card-title {
+    font-size: 1.1rem;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
+  .publication-card-description {
+    color: var(--octo-grey);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    flex-grow: 1;
+  }
+</style>

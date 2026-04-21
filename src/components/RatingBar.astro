@@ -1,0 +1,17 @@
+---
+interface Props {
+  label: string;
+  value: number;
+}
+
+const { label, value } = Astro.props;
+const pct = (value / 5) * 100;
+---
+
+<div class="rating-bar">
+  <span class="rating-bar-label" style="flex: 0 0 140px;">{label}</span>
+  <div class="rating-bar-track">
+    <div class="rating-bar-fill" style={`width: ${pct}%`}></div>
+  </div>
+  <span style="font-size: 0.8rem; color: var(--octo-grey); flex-shrink: 0;">{value}/5</span>
+</div>

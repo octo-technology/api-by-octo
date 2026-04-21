@@ -1,0 +1,106 @@
+{
+  "fr": {
+    "questions": [
+      {
+        "id": "deployment",
+        "question": "Quel mode de déploiement privilégiez-vous ?",
+        "options": [
+          { "label": "Full SaaS (cloud managé)", "scores": { "apigee": 3, "microsoft": 3, "tyk": 2, "tibco-mashery": 2 } },
+          { "label": "On-premise (sur vos serveurs)", "scores": { "kong": 3, "gravitee": 3, "wso2": 3, "axway": 2, "ibm": 2 } },
+          { "label": "Hybride (mix des deux)", "scores": { "3scale": 3, "kong": 2, "tyk": 2, "broadcom": 2 } }
+        ]
+      },
+      {
+        "id": "budget",
+        "question": "Quel est votre budget pour la solution ?",
+        "options": [
+          { "label": "Limité — open source de préférence", "scores": { "kong": 3, "gravitee": 3, "3scale": 3, "tyk": 2, "wso2": 2 } },
+          { "label": "Modéré — licence raisonnable", "scores": { "tyk": 3, "3scale": 2, "gravitee": 2, "microsoft": 2 } },
+          { "label": "Conséquent — pas de contrainte", "scores": { "apigee": 3, "ibm": 2, "mulesoft": 2, "axway": 2, "kong": 1 } }
+        ]
+      },
+      {
+        "id": "ecosystem",
+        "question": "Quel est votre écosystème technologique principal ?",
+        "options": [
+          { "label": "Google Cloud", "scores": { "apigee": 3 } },
+          { "label": "AWS", "scores": { "aws": 3, "kong": 2, "tyk": 1 } },
+          { "label": "Azure / Microsoft", "scores": { "microsoft": 3 } },
+          { "label": "Red Hat / OpenShift", "scores": { "3scale": 3 } },
+          { "label": "Agnostique / multi-cloud", "scores": { "kong": 3, "gravitee": 3, "tyk": 2, "wso2": 2 } }
+        ]
+      },
+      {
+        "id": "maturity",
+        "question": "Quel est votre niveau de maturité en API Management ?",
+        "options": [
+          { "label": "Débutant — première mise en place", "scores": { "tyk": 3, "gravitee": 3, "kong": 2 } },
+          { "label": "Intermédiaire — quelques API en production", "scores": { "kong": 3, "3scale": 2, "apigee": 2, "gravitee": 2 } },
+          { "label": "Avancé — plateforme API mature", "scores": { "apigee": 3, "kong": 3, "ibm": 2, "axway": 2 } }
+        ]
+      },
+      {
+        "id": "priority",
+        "question": "Quelle est votre priorité principale ?",
+        "options": [
+          { "label": "Time to market rapide", "scores": { "tyk": 3, "gravitee": 3, "3scale": 2, "kong": 2 } },
+          { "label": "Flexibilité et personnalisation", "scores": { "kong": 3, "apigee": 3, "3scale": 2 } },
+          { "label": "Support éditeur solide", "scores": { "apigee": 3, "ibm": 3, "microsoft": 2, "axway": 2 } },
+          { "label": "Communauté et open source", "scores": { "kong": 3, "gravitee": 3, "3scale": 2, "wso2": 2, "tyk": 2 } }
+        ]
+      }
+    ]
+  },
+  "en": {
+    "questions": [
+      {
+        "id": "deployment",
+        "question": "What deployment mode do you prefer?",
+        "options": [
+          { "label": "Full SaaS (managed cloud)", "scores": { "apigee": 3, "microsoft": 3, "tyk": 2, "tibco-mashery": 2 } },
+          { "label": "On-premise (your servers)", "scores": { "kong": 3, "gravitee": 3, "wso2": 3, "axway": 2, "ibm": 2 } },
+          { "label": "Hybrid (mix of both)", "scores": { "3scale": 3, "kong": 2, "tyk": 2, "broadcom": 2 } }
+        ]
+      },
+      {
+        "id": "budget",
+        "question": "What is your budget for the solution?",
+        "options": [
+          { "label": "Limited — open source preferred", "scores": { "kong": 3, "gravitee": 3, "3scale": 3, "tyk": 2, "wso2": 2 } },
+          { "label": "Moderate — reasonable licensing", "scores": { "tyk": 3, "3scale": 2, "gravitee": 2, "microsoft": 2 } },
+          { "label": "Substantial — no constraints", "scores": { "apigee": 3, "ibm": 2, "mulesoft": 2, "axway": 2, "kong": 1 } }
+        ]
+      },
+      {
+        "id": "ecosystem",
+        "question": "What is your main technology ecosystem?",
+        "options": [
+          { "label": "Google Cloud", "scores": { "apigee": 3 } },
+          { "label": "AWS", "scores": { "aws": 3, "kong": 2, "tyk": 1 } },
+          { "label": "Azure / Microsoft", "scores": { "microsoft": 3 } },
+          { "label": "Red Hat / OpenShift", "scores": { "3scale": 3 } },
+          { "label": "Agnostic / multi-cloud", "scores": { "kong": 3, "gravitee": 3, "tyk": 2, "wso2": 2 } }
+        ]
+      },
+      {
+        "id": "maturity",
+        "question": "What is your API Management maturity level?",
+        "options": [
+          { "label": "Beginner — first implementation", "scores": { "tyk": 3, "gravitee": 3, "kong": 2 } },
+          { "label": "Intermediate — some APIs in production", "scores": { "kong": 3, "3scale": 2, "apigee": 2, "gravitee": 2 } },
+          { "label": "Advanced — mature API platform", "scores": { "apigee": 3, "kong": 3, "ibm": 2, "axway": 2 } }
+        ]
+      },
+      {
+        "id": "priority",
+        "question": "What is your main priority?",
+        "options": [
+          { "label": "Fast time to market", "scores": { "tyk": 3, "gravitee": 3, "3scale": 2, "kong": 2 } },
+          { "label": "Flexibility and customization", "scores": { "kong": 3, "apigee": 3, "3scale": 2 } },
+          { "label": "Solid vendor support", "scores": { "apigee": 3, "ibm": 3, "microsoft": 2, "axway": 2 } },
+          { "label": "Community and open source", "scores": { "kong": 3, "gravitee": 3, "3scale": 2, "wso2": 2, "tyk": 2 } }
+        ]
+      }
+    ]
+  }
+}

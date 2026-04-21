@@ -1,0 +1,415 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import quizData from '../data/quiz-questions.json';
+import { getCollection } from 'astro:content';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const questions = quizData[lang].questions;
+
+// Build slug → name mapping from solutions collection
+const allSolutions = await getCollection('solutions');
+const solutionNames: Record<string, string> = {};
+for (const sol of allSolutions) {
+  if (sol.data.lang === lang) {
+    solutionNames[sol.data.slug] = sol.data.name;
+  }
+}
+---
+
+<div
+  id="quiz-container"
+  data-lang={lang}
+  data-benchmark-url={`/${lang}/benchmark`}
+  data-solution-names={JSON.stringify(solutionNames)}
+>
+  <h2 class="heading-dot">{t('guide.quiz.title')}</h2>
+  <p class="quiz-desc">{t('guide.quiz.desc')}</p>
+
+  <!-- Progress bar -->
+  <div class="quiz-progress">
+    <div class="quiz-progress-fill" style="width: 0%"></div>
+  </div>
+
+  <!-- Questions -->
+  <div class="quiz-questions">
+    {questions.map((q, i) => (
+      <div
+        class="quiz-question"
+        data-index={i}
+        data-question-id={q.id}
+        style={i === 0 ? '' : 'display:none'}
+      >
+        <h3>{q.question}</h3>
+        <div class="quiz-options">
+          {q.options.map((opt, j) => (
+            <button
+              class="quiz-option"
+              data-option-index={j}
+              data-scores={JSON.stringify(opt.scores)}
+            >
+              {opt.label}
+            </button>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <!-- Navigation -->
+  <div class="quiz-nav">
+    <button class="btn btn-outline-dark quiz-prev" style="display:none">
+      {t('guide.quiz.prev')}
+    </button>
+    <button class="btn btn-primary quiz-next" style="display:none">
+      {t('guide.quiz.next')}
+    </button>
+  </div>
+
+  <!-- Results -->
+  <div class="quiz-results" style="display:none">
+    <h3 class="heading-dot">{t('guide.quiz.results')}</h3>
+    <div class="card-grid quiz-results-grid"></div>
+    <button class="btn btn-outline-dark quiz-restart">
+      {t('guide.quiz.restart')}
+    </button>
+  </div>
+</div>
+
+<script>
+  function initQuiz() {
+    const container = document.getElementById('quiz-container');
+    if (!container) return;
+
+    const lang = container.dataset.lang || 'fr';
+    const benchmarkUrl = container.dataset.benchmarkUrl || `/${lang}/benchmark`;
+    const solutionNames: Record<string, string> = JSON.parse(
+      container.dataset.solutionNames || '{}'
+    );
+    const seeInBenchmarkLabel =
+      lang === 'fr' ? 'Voir dans le benchmark' : 'View in benchmark';
+
+    const questionEls = container.querySelectorAll<HTMLElement>('.quiz-question');
+    const progressFill =
+      container.querySelector<HTMLElement>('.quiz-progress-fill');
+    const prevBtn = container.querySelector<HTMLElement>('.quiz-prev');
+    const nextBtn = container.querySelector<HTMLElement>('.quiz-next');
+    const resultsDiv = container.querySelector<HTMLElement>('.quiz-results');
+    const resultsGrid = container.querySelector<HTMLElement>(
+      '.quiz-results-grid'
+    );
+    const restartBtn = container.querySelector<HTMLElement>('.quiz-restart');
+    const questionsDiv = container.querySelector<HTMLElement>('.quiz-questions');
+    const navDiv = container.querySelector<HTMLElement>('.quiz-nav');
+
+    const totalQuestions = questionEls.length;
+    let currentIndex = 0;
+    const answers: Record<string, Record<string, number>> = {};
+
+    function showQuestion(index: number) {
+      questionEls.forEach((el) => {
+        el.style.display = 'none';
+      });
+      questionEls[index].style.display = '';
+
+      // Update progress bar
+      if (progressFill) {
+        const pct = ((index + 1) / totalQuestions) * 100;
+        progressFill.style.width = `${pct}%`;
+      }
+
+      // Show/hide prev button
+      if (prevBtn) {
+        prevBtn.style.display = index === 0 ? 'none' : '';
+      }
+
+      // Show/hide next button (only if an answer was selected for current question)
+      const qId = questionEls[index].dataset.questionId || '';
+      if (nextBtn) {
+        nextBtn.style.display = answers[qId] ? '' : 'none';
+        // Change label on last question
+        nextBtn.textContent =
+          index === totalQuestions - 1
+            ? lang === 'fr'
+              ? 'Voir les résultats'
+              : 'View results'
+            : lang === 'fr'
+              ? 'Suivant'
+              : 'Next';
+      }
+
+      // Restore selected state
+      const options =
+        questionEls[index].querySelectorAll<HTMLElement>('.quiz-option');
+      options.forEach((opt) => opt.classList.remove('selected'));
+      if (answers[qId]) {
+        // Find which option was selected by matching scores
+        const savedScores = JSON.stringify(answers[qId]);
+        options.forEach((opt) => {
+          if (opt.dataset.scores === savedScores) {
+            opt.classList.add('selected');
+          }
+        });
+      }
+    }
+
+    // Option click handler
+    container.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      const optionBtn = target.closest<HTMLElement>('.quiz-option');
+      if (!optionBtn) return;
+
+      const questionEl = optionBtn.closest<HTMLElement>('.quiz-question');
+      if (!questionEl) return;
+
+      const qId = questionEl.dataset.questionId || '';
+      const scores: Record<string, number> = JSON.parse(
+        optionBtn.dataset.scores || '{}'
+      );
+
+      // Deselect siblings, select this one
+      questionEl
+        .querySelectorAll('.quiz-option')
+        .forEach((o) => o.classList.remove('selected'));
+      optionBtn.classList.add('selected');
+
+      // Store answer
+      answers[qId] = scores;
+
+      // Show next button
+      if (nextBtn) {
+        nextBtn.style.display = '';
+      }
+    });
+
+    // Next button
+    nextBtn?.addEventListener('click', () => {
+      if (currentIndex < totalQuestions - 1) {
+        currentIndex++;
+        showQuestion(currentIndex);
+      } else {
+        showResults();
+      }
+    });
+
+    // Prev button
+    prevBtn?.addEventListener('click', () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        showQuestion(currentIndex);
+      }
+    });
+
+    function showResults() {
+      // Sum all scores per solution
+      const totals: Record<string, number> = {};
+      for (const qId of Object.keys(answers)) {
+        const scores = answers[qId];
+        for (const [slug, score] of Object.entries(scores)) {
+          totals[slug] = (totals[slug] || 0) + score;
+        }
+      }
+
+      // Calculate max possible score (3 points per question × number of questions)
+      const maxPossible = 3 * totalQuestions;
+
+      // Sort by score descending, take top 3
+      const sorted = Object.entries(totals)
+        .sort(([, a], [, b]) => b - a)
+        .slice(0, 3);
+
+      // Build result cards
+      if (resultsGrid) {
+        resultsGrid.innerHTML = sorted
+          .map(([slug, score]) => {
+            const pct = Math.round((score / maxPossible) * 100);
+            const name = solutionNames[slug] || slug;
+            return `
+              <div class="card quiz-result-card">
+                <h4>${name}</h4>
+                <div class="quiz-result-bar">
+                  <div class="quiz-result-bar-fill" style="width: ${pct}%"></div>
+                </div>
+                <span class="quiz-result-pct">${pct}%</span>
+                <a href="${benchmarkUrl}#${slug}" class="btn btn-outline-dark quiz-result-link">
+                  ${seeInBenchmarkLabel}
+                </a>
+              </div>
+            `;
+          })
+          .join('');
+      }
+
+      // Hide questions & nav, show results
+      if (questionsDiv) questionsDiv.style.display = 'none';
+      if (navDiv) navDiv.style.display = 'none';
+      if (resultsDiv) resultsDiv.style.display = '';
+    }
+
+    // Restart
+    restartBtn?.addEventListener('click', () => {
+      // Clear answers
+      for (const key of Object.keys(answers)) {
+        delete answers[key];
+      }
+      currentIndex = 0;
+
+      // Reset option selections
+      container
+        .querySelectorAll('.quiz-option')
+        .forEach((o) => o.classList.remove('selected'));
+
+      // Show questions & nav, hide results
+      if (questionsDiv) questionsDiv.style.display = '';
+      if (navDiv) navDiv.style.display = '';
+      if (resultsDiv) resultsDiv.style.display = 'none';
+
+      showQuestion(0);
+    });
+
+    // Initialize
+    showQuestion(0);
+  }
+
+  // Run on page load and on Astro page transitions
+  document.addEventListener('astro:page-load', initQuiz);
+  initQuiz();
+</script>
+
+<style>
+  #quiz-container {
+    padding-block: var(--space-lg);
+  }
+
+  .quiz-desc {
+    color: var(--octo-grey);
+    margin-bottom: var(--space-lg);
+  }
+
+  /* Progress bar */
+  .quiz-progress {
+    height: 4px;
+    background-color: var(--octo-grey-light);
+    border-radius: var(--radius-pill);
+    margin-bottom: var(--space-lg);
+    overflow: hidden;
+  }
+
+  .quiz-progress-fill {
+    height: 100%;
+    background-color: var(--octo-secondary);
+    border-radius: var(--radius-pill);
+    transition: width 0.3s ease;
+  }
+
+  /* Questions */
+  .quiz-question h3 {
+    margin-bottom: var(--space-md);
+  }
+
+  .quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  /* Option buttons */
+  .quiz-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.85rem var(--space-md);
+    font-family: var(--font-family);
+    font-size: 0.95rem;
+    font-weight: var(--font-regular);
+    color: var(--octo-main);
+    background-color: var(--octo-grey-light);
+    border: 2px solid transparent;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .quiz-option:hover {
+    border-color: var(--octo-secondary);
+  }
+
+  .quiz-option.selected {
+    border-color: var(--octo-secondary);
+    background-color: rgba(0, 210, 221, 0.08);
+  }
+
+  /* Navigation */
+  .quiz-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--space-lg);
+    gap: var(--space-md);
+  }
+
+  /* Push next button to the right when prev is hidden */
+  .quiz-nav .quiz-next {
+    margin-left: auto;
+  }
+
+  /* Results */
+  .quiz-results {
+    margin-top: var(--space-lg);
+  }
+
+  .quiz-results h3 {
+    margin-bottom: var(--space-lg);
+  }
+
+  .quiz-results-grid {
+    margin-bottom: var(--space-lg);
+  }
+
+  .quiz-result-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    align-items: flex-start;
+  }
+
+  .quiz-result-card h4 {
+    margin: 0;
+  }
+
+  .quiz-result-bar {
+    width: 100%;
+    height: 8px;
+    background-color: var(--octo-white);
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+  }
+
+  .quiz-result-bar-fill {
+    height: 100%;
+    background-color: var(--octo-secondary);
+    border-radius: var(--radius-pill);
+  }
+
+  .quiz-result-pct {
+    font-size: 1.5rem;
+    font-weight: var(--font-bold);
+    color: var(--octo-secondary);
+  }
+
+  .quiz-result-link {
+    margin-top: var(--space-sm);
+    font-size: 0.8rem;
+  }
+
+  .quiz-restart {
+    margin-top: var(--space-md);
+  }
+
+  @media (max-width: 768px) {
+    .quiz-option {
+      font-size: 0.9rem;
+      padding: 0.75rem var(--space-sm);
+    }
+  }
+</style>

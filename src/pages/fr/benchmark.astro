@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SolutionAccordion from '../../components/SolutionAccordion.astro';
+import { getCollection } from 'astro:content';
+import { useTranslations } from '../../i18n/utils';
+
+const t = useTranslations('fr');
+
+const allSolutions = await getCollection('solutions');
+const solutions = allSolutions
+  .filter((s) => s.data.lang === 'fr')
+  .sort((a, b) => a.data.name.localeCompare(b.data.name));
+---
+
+<BaseLayout title={t('benchmark.title')} description="Comparatif détaillé des principales solutions d'API Management du marché.">
+  <section class="section">
+    <div class="container">
+      <h1 class="heading-dot">{t('benchmark.title')}</h1>
+      <div class="benchmark-list">
+        {solutions.map((sol) => (
+          <SolutionAccordion
+            name={sol.data.name}
+            slug={sol.data.slug}
+            vendor={sol.data.vendor}
+            year={sol.data.year}
+            openSource={sol.data.openSource}
+            deploymentModes={sol.data.deploymentModes}
+            description={sol.body}
+            ratings={sol.data.ratings}
+            pros={sol.data.pros}
+            cons={sol.data.cons}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .benchmark-list {
+    margin-top: var(--space-xl);
+  }
+</style>

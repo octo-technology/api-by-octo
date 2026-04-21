@@ -1,0 +1,46 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { getLangFromUrl, getAlternateUrl } from '../i18n/utils';
+import '../styles/global.css';
+import '../styles/components.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const { title, description = '', ogImage = '/assets/og-image.png' } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+const fullTitle = `${title} — API by OCTO`;
+const ogLocale = lang === 'fr' ? 'fr_FR' : 'en_GB';
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang="fr" href={new URL(getAlternateUrl(Astro.url, 'fr'), Astro.site)} />
+    <link rel="alternate" hreflang="en" href={new URL(getAlternateUrl(Astro.url, 'en'), Astro.site)} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site)} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={ogLocale} />
+  </head>
+  <body>
+    <Header />
+    <main id="main" role="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

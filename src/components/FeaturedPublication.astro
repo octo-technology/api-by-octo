@@ -1,0 +1,78 @@
+---
+import { getCollection } from 'astro:content';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const allPublications = await getCollection('publications');
+const featured = allPublications.find(
+  (pub) => pub.data.featured === true && pub.data.lang === lang
+);
+---
+
+{featured && (
+  <section class="section">
+    <div class="container">
+      <span class="badge badge-cyan">{t('featured.label')}</span>
+      <div class="featured-card">
+        {featured.data.image && (
+          <img class="featured-image" src={featured.data.image} alt={featured.data.title} />
+        )}
+        <div class="featured-content">
+          <h2 class="featured-title">{featured.data.title}</h2>
+          <p class="featured-description">{featured.data.description}</p>
+          <a class="btn btn-primary" href={featured.data.downloadUrl}>
+            {t('publications.download')}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .featured-card {
+    display: flex;
+    gap: var(--space-lg);
+    background-color: var(--octo-grey-light);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    margin-top: var(--space-lg);
+  }
+
+  .featured-image {
+    width: 240px;
+    flex-shrink: 0;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+  }
+
+  .featured-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .featured-title {
+    font-size: 1.5rem;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
+  .featured-description {
+    color: var(--octo-grey);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .featured-card {
+      flex-direction: column;
+    }
+
+    .featured-image {
+      width: 100%;
+      max-height: 200px;
+    }
+  }
+</style>

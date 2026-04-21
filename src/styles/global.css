@@ -1,0 +1,183 @@
+/* ============================================
+   OCTO Design System — Global Styles
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap');
+
+/* ----- Design Tokens ----- */
+
+:root {
+  /* Colors */
+  --octo-main: #0e2356;
+  --octo-secondary: #00d2dd;
+  --octo-grey: #8691aa;
+  --octo-grey-light: #f5f6fa;
+  --octo-red: #e60000;
+  --octo-white: #ffffff;
+
+  /* Typography */
+  --font-family: 'Outfit', Arial, Helvetica, sans-serif;
+  --font-light: 300;
+  --font-regular: 400;
+  --font-semibold: 600;
+  --font-bold: 700;
+  --font-extrabold: 800;
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 5rem;
+
+  /* Layout */
+  --max-width: 1100px;
+}
+
+/* ----- CSS Reset ----- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ----- Base Styles ----- */
+
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-family);
+  font-weight: var(--font-regular);
+  line-height: 1.6;
+  color: var(--octo-main);
+  background: var(--octo-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
+/* ----- Media ----- */
+
+img,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+/* ----- Links ----- */
+
+a {
+  color: var(--octo-secondary);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+/* ----- Lists ----- */
+
+ul,
+ol {
+  list-style: none;
+}
+
+/* ----- Typography ----- */
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: var(--font-bold);
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 1.75rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+h4 {
+  font-size: 1.1rem;
+}
+
+/* Cyan dot after headings */
+.heading-dot::after {
+  content: '.';
+  color: var(--octo-secondary);
+}
+
+/* ----- Layout Utilities ----- */
+
+.container {
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--space-md);
+}
+
+.section {
+  padding-block: var(--space-2xl);
+}
+
+/* ----- Accessibility ----- */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ----- Responsive ----- */
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.35rem;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+  }
+
+  .section {
+    padding-block: var(--space-xl);
+  }
+}

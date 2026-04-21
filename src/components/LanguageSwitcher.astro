@@ -1,0 +1,36 @@
+---
+import { languages, type Lang } from '../i18n/ui';
+import { getLangFromUrl, getAlternateUrl } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+---
+
+<nav class="lang-switcher" aria-label="Language switcher">
+  {Object.entries(languages).map(([code, label]) =>
+    code === lang ? (
+      <span class="lang-link current" aria-current="true">{code.toUpperCase()}</span>
+    ) : (
+      <a class="lang-link" href={getAlternateUrl(Astro.url, code as Lang)}>{code.toUpperCase()}</a>
+    )
+  )}
+</nav>
+
+<style>
+  .lang-switcher {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+
+  .lang-link {
+    text-decoration: none;
+    color: var(--octo-main);
+  }
+
+  .lang-link.current {
+    color: var(--octo-secondary);
+  }
+</style>

@@ -1,0 +1,160 @@
+---
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import { getLangFromUrl } from '../i18n/utils';
+import { useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const linksSlug = lang === 'fr' ? 'liens' : 'links';
+
+const navLinks = [
+  { label: t('nav.publications'), href: `/${lang}/publications` },
+  { label: t('nav.links'), href: `/${lang}/${linksSlug}` },
+  { label: t('nav.benchmark'), href: `/${lang}/benchmark` },
+  { label: t('nav.guide'), href: `/${lang}/guide` },
+];
+---
+
+<header class="header">
+  <div class="header-inner container">
+    <a class="logo" href={`/${lang}/`}>
+      <img src="/assets/logo-octo.svg" alt="OCTO Technology" width="140" height="28" />
+      <span class="logo-label">API</span>
+    </a>
+
+    <button class="burger" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav id="primary-nav" class="nav" aria-label="Primary navigation">
+      <ul class="nav-list">
+        {navLinks.map((link) => (
+          <li><a class="nav-link" href={link.href}>{link.label}</a></li>
+        ))}
+      </ul>
+      <LanguageSwitcher />
+    </nav>
+  </div>
+</header>
+
+<script>
+  const burger = document.querySelector('.burger');
+  const nav = document.querySelector('#primary-nav');
+
+  burger?.addEventListener('click', () => {
+    const expanded = burger.getAttribute('aria-expanded') === 'true';
+    burger.setAttribute('aria-expanded', String(!expanded));
+    nav?.classList.toggle('is-open');
+  });
+</script>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: var(--octo-white);
+    border-bottom: 1px solid var(--octo-grey-light);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+  }
+
+  .logo-label {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--octo-secondary);
+    letter-spacing: 2px;
+  }
+
+  .burger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+  }
+
+  .burger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: var(--octo-main);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+  }
+
+  .nav-list {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    list-style: none;
+  }
+
+  .nav-link {
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--octo-main);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .nav-link:hover {
+    color: var(--octo-secondary);
+  }
+
+  @media (max-width: 768px) {
+    .burger {
+      display: flex;
+    }
+
+    .nav {
+      display: none;
+      position: absolute;
+      top: 64px;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+      background-color: var(--octo-white);
+      border-bottom: 1px solid var(--octo-grey-light);
+      padding: var(--space-md);
+    }
+
+    .nav.is-open {
+      display: flex;
+    }
+
+    .nav-list {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-md);
+      width: 100%;
+    }
+  }
+</style>

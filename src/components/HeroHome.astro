@@ -1,0 +1,69 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<section class="hero">
+  <div class="hero-inner">
+    <p class="hero-subtitle">{t('hero.subtitle')}</p>
+    <h1 class="hero-title heading-dot">{t('hero.title')}</h1>
+    <p class="hero-description">{t('hero.description')}</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href={`/${lang}/benchmark`}>{t('hero.cta.benchmark')}</a>
+      <a class="btn btn-outline" href={`/${lang}/guide`}>{t('hero.cta.guide')}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    background-color: var(--octo-main);
+    padding-block: var(--space-2xl);
+    text-align: center;
+  }
+
+  .hero-inner {
+    max-width: 700px;
+    margin-inline: auto;
+    padding-inline: var(--space-md);
+  }
+
+  .hero-subtitle {
+    color: var(--octo-secondary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: var(--space-md);
+  }
+
+  .hero-title {
+    color: var(--octo-white);
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero-description {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: var(--space-xl);
+  }
+
+  .hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 2rem;
+    }
+  }
+</style>
