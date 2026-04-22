@@ -70,6 +70,10 @@ let conf_cms = {
         "header-menu-publications-FR": "Publications <span class='icon icon-video-play'>",
         "header-menu-download-EN": "Download Refcard <span class='icon icon-video-play'>",
         "header-menu-download-FR": "Télécharger la Refcard <span class='icon icon-video-play'>",
+        "bloc-culture-api-title-EN": "CULTURE API<br/>OUR NEW WHITE BOOK",
+        "bloc-culture-api-title-FR": "CULTURE API<br/>NOTRE NOUVEAU LIVRE BLANC",
+        "bloc-culture-api-subtitle-EN": "Download the book!",
+        "bloc-culture-api-subtitle-FR": "Télécharger le livre !",
         "bloc-ressources-title-EN": "ALL OUR PUBLICATIONS<br/> ABOUT API",
         "bloc-ressources-title-FR": "TOUTES NOS PUBLICATIONS<br/> AUTOUR DES API",
         "bloc-ressources-subtitle-EN": "Discover our resources!",
@@ -773,6 +777,8 @@ $(document).ready(function () {
             $('#title-section').hide();
             this._setCMSValue('.button-ressources a', 'home', 'header-menu-ressources');
             this._setCMSValue('.button-quizz a', 'home', 'header-menu-quizz');
+            this._setCMSValue('.culture-api-bloc h2', 'home', 'bloc-culture-api-title');
+            this._setCMSValue('.culture-api-bloc h3', 'home', 'bloc-culture-api-subtitle');
             this._setCMSValue('.ressources-bloc h2', 'home', 'bloc-ressources-title');
             this._setCMSValue('.ressources-bloc h3', 'home', 'bloc-ressources-subtitle');
             this._setCMSValue('.start-quizz-bloc h2', 'home', 'bloc-quizz-title');
@@ -949,6 +955,10 @@ $(document).ready(function () {
                 $('html, body').animate({
                     scrollTop: scrollTo
                 }, 200);
+            });
+
+            $(".culture-api-bloc").click(function () {
+                window.open('https://publication.octo.com/culture-api-', '_blank');
             });
 
             $(".ressources-bloc").click(function () {

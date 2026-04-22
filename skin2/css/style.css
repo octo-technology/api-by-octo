@@ -789,7 +789,7 @@ section {
 
 #section-intro,
 #section-quizz {
-    padding-top: 100px;
+    padding-top: 20px;
 }
 
 #section-quizz .return-button {
@@ -808,6 +808,7 @@ section {
     text-align: left;
 }
 
+.culture-api-bloc,
 .ressources-bloc,
 .start-quizz-bloc,
 .solutions-bloc,
@@ -815,6 +816,11 @@ section {
     opacity: 1;
     border: none;
     position: relative;
+}
+
+.culture-api-bloc:hover {
+    opacity: 0.8;
+    cursor: pointer;
 }
 
 .ressources-bloc:hover {
