@@ -70,6 +70,10 @@ let conf_cms = {
         "header-menu-publications-FR": "Publications <span class='icon icon-video-play'>",
         "header-menu-download-EN": "Download Refcard <span class='icon icon-video-play'>",
         "header-menu-download-FR": "Télécharger la Refcard <span class='icon icon-video-play'>",
+        "bloc-culture-api-title-EN": "CULTURE API<br/>OUR NEW WHITE BOOK",
+        "bloc-culture-api-title-FR": "CULTURE API<br/>NOTRE NOUVEAU LIVRE BLANC",
+        "bloc-culture-api-subtitle-EN": "Download the book!",
+        "bloc-culture-api-subtitle-FR": "Télécharger le livre !",
         "bloc-ressources-title-EN": "ALL OUR PUBLICATIONS<br/> ABOUT API",
         "bloc-ressources-title-FR": "TOUTES NOS PUBLICATIONS<br/> AUTOUR DES API",
         "bloc-ressources-subtitle-EN": "Discover our resources!",
@@ -136,8 +140,16 @@ let conf_cms = {
         "ressources-blog-title-FR": "Articles de blog & ressources",
         "ressources-download-btn-EN": "Download",
         "ressources-download-btn-FR": "Télécharger",
-        "background-image": "./skin2/img/Refcard_API_Management.jpg",
-        "background-image-mobile": "./skin2/img/Refcard_API_Management_jaune_siteAPI-mobile.jpg"
+        "ressources-culture-api-title-EN": "Culture API",
+        "ressources-culture-api-title-FR": "Culture API",
+        "ressources-culture-api-subtitle-EN": "Our new white book",
+        "ressources-culture-api-subtitle-FR": "Notre nouveau livre blanc",
+        "ressources-culture-api-desc-EN": "Discover our comprehensive white book on API culture. An essential guide to understand and master API challenges in your organization.",
+        "ressources-culture-api-desc-FR": "Découvrez notre livre blanc complet sur la culture API. Un guide essentiel pour comprendre et maîtriser les enjeux des API dans votre organisation.",
+        "ressources-culture-api-btn-EN": "Download the white book",
+        "ressources-culture-api-btn-FR": "Télécharger le livre blanc",
+        "background-image": "./skin2/img/background-culture-api.jpg",
+        "background-image-mobile": "./skin2/img/background-culture-api-mobile.jpg"
     },
     "section-quizz": {
         "background-image": "./skin2/img/Refcard_open_OK_1024x620.png"
@@ -773,6 +785,8 @@ $(document).ready(function () {
             $('#title-section').hide();
             this._setCMSValue('.button-ressources a', 'home', 'header-menu-ressources');
             this._setCMSValue('.button-quizz a', 'home', 'header-menu-quizz');
+            this._setCMSValue('.culture-api-bloc h2', 'home', 'bloc-culture-api-title');
+            this._setCMSValue('.culture-api-bloc h3', 'home', 'bloc-culture-api-subtitle');
             this._setCMSValue('.ressources-bloc h2', 'home', 'bloc-ressources-title');
             this._setCMSValue('.ressources-bloc h3', 'home', 'bloc-ressources-subtitle');
             this._setCMSValue('.start-quizz-bloc h2', 'home', 'bloc-quizz-title');
@@ -949,6 +963,10 @@ $(document).ready(function () {
                 $('html, body').animate({
                     scrollTop: scrollTo
                 }, 200);
+            });
+
+            $(".culture-api-bloc").click(function () {
+                window.open('https://publication.octo.com/culture-api-', '_blank');
             });
 
             $(".ressources-bloc").click(function () {
@@ -1162,10 +1180,16 @@ $(document).ready(function () {
             $("#home-bg-solutions").removeClass("transparent");
             this._setCMSValue('#title-section h1', 'home', 'section-intro-ressources-title');
             this._setCMSValue('#title-section p', 'home', 'section-intro-ressources-subtitle');
-            
+
+            // Update Culture API content with translations
+            $('.culture-api-content h2').html(this._getCMSValue('home', 'ressources-culture-api-title'));
+            $('.culture-api-content h3').html(this._getCMSValue('home', 'ressources-culture-api-subtitle'));
+            $('.culture-api-content p').html(this._getCMSValue('home', 'ressources-culture-api-desc'));
+            $('.culture-api-content a').html(this._getCMSValue('home', 'ressources-culture-api-btn'));
+
             // Update resources content with translations
-            $('#section-ressources .bloc-edito:first h2').html(this._getCMSValue('home', 'ressources-refcards-title'));
-            $('#section-ressources .bloc-edito:first p').html(this._getCMSValue('home', 'ressources-refcards-subtitle'));
+            $('.refcards-content h2').html(this._getCMSValue('home', 'ressources-refcards-title'));
+            $('.refcards-content p').html(this._getCMSValue('home', 'ressources-refcards-subtitle'));
             
             // Update refcards titles, descriptions and buttons
             var refcards = $('#ressources-refcards .bloc-edito');

@@ -789,7 +789,7 @@ section {
 
 #section-intro,
 #section-quizz {
-    padding-top: 100px;
+    padding-top: 20px;
 }
 
 #section-quizz .return-button {
@@ -808,6 +808,7 @@ section {
     text-align: left;
 }
 
+.culture-api-bloc,
 .ressources-bloc,
 .start-quizz-bloc,
 .solutions-bloc,
@@ -815,6 +816,11 @@ section {
     opacity: 1;
     border: none;
     position: relative;
+}
+
+.culture-api-bloc:hover {
+    opacity: 0.8;
+    cursor: pointer;
 }
 
 .ressources-bloc:hover {
@@ -1132,6 +1138,80 @@ section {
 
 #section-ressources .bloc-edito li {
     font-size: 1.2em;
+}
+
+.culture-api-feature {
+    margin-bottom: 80px;
+    margin-top: 40px;
+    align-items: center;
+}
+
+.culture-api-image {
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: auto;
+}
+
+.culture-api-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px;
+}
+
+.culture-api-content h2,
+.refcards-content h2,
+.blog-and-resources-content h2{
+    font-size: 42px;
+    font-weight: 900;
+    margin-bottom: 10px;
+    color: #0e2356;
+}
+
+.culture-api-content h3 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #0e2356;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.culture-api-content p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.culture-api-content .btn-lg {
+    font-size: 18px;
+    padding: 15px 40px;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .culture-api-feature {
+        margin-bottom: 40px;
+    }
+
+    .culture-api-image {
+        margin-bottom: 30px;
+    }
+
+    .culture-api-content {
+        padding: 15px;
+    }
+
+    .culture-api-content h2,
+    .refcards-content h2,
+    .blog-and-resources-content h2 {
+        font-size: 32px;
+    }
+
+    .culture-api-content h3 {
+        font-size: 20px;
+    }
 }
 
 .footer {
