@@ -136,8 +136,8 @@ let conf_cms = {
         "ressources-blog-title-FR": "Articles de blog & ressources",
         "ressources-download-btn-EN": "Download",
         "ressources-download-btn-FR": "Télécharger",
-        "background-image": "./skin2/img/Refcard_API_Management.jpg",
-        "background-image-mobile": "./skin2/img/Refcard_API_Management_jaune_siteAPI-mobile.jpg"
+        "background-image": "./skin2/img/background-culture-api.jpg",
+        "background-image-mobile": "./skin2/img/background-culture-api-mobile.jpg"
     },
     "section-quizz": {
         "background-image": "./skin2/img/Refcard_open_OK_1024x620.png"
